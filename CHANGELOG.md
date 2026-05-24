@@ -10,3 +10,4 @@
 - Added benchmark workflow and `pnpm benchmark:guide` for comparing dry-run investigation with and without projnavi.
 - Added Vitest coverage for parsing, glossary matching, guide output, stale detection, init overwrite behavior, agent instruction generation, and CLI smoke paths.
 - Added npm publish metadata.
+- Fixed npm global binary execution when invoked through a symlinked package bin.

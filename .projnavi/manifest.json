@@ -1,7 +1,7 @@
 {
   "version": 1,
   "projnaviVersion": "0.1.0",
-  "generatedAt": "2026-05-24T05:04:25.884Z",
+  "generatedAt": "2026-05-24T05:18:26.446Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
@@ -11,15 +11,15 @@
       "category": "docs"
     },
     "CHANGELOG.md": {
-      "hash": "f936e7f976e265d750903c5a1eb2afeda2e4c880f593206cb43fa0905d5b0d8d",
-      "size": 904,
-      "mtimeMs": 1779599043278.0552,
+      "hash": "8352366c5e525afcff894f7cf31975a7529681cef6982d96ebb3ebbcd7be43c9",
+      "size": 986,
+      "mtimeMs": 1779599850324.5598,
       "category": "docs"
     },
     "DEVLOG.md": {
-      "hash": "58f902cf74f1282bc68cfd4ebf335e3e8727e82a91259c66086e986b9db93822",
-      "size": 1492,
-      "mtimeMs": 1779599043278.0552,
+      "hash": "b369ebc30f3c5b0d98b01a1ae9b52d5c920b09f882d6bd2e5943f5d49f86af84",
+      "size": 1642,
+      "mtimeMs": 1779599850449.5596,
       "category": "docs"
     },
     "docs/benchmark-plan.md": {
@@ -41,9 +41,9 @@
       "category": "config"
     },
     "package.json": {
-      "hash": "4896137cfc2b45fd3b7199d3b9989f1e10958006bb75745c0aff5938958d4af1",
-      "size": 1227,
-      "mtimeMs": 1779598911487.3318,
+      "hash": "f717a28b04bebcdc1019c114f3ae00aa882027ef67fac9615d9ee3d6b3c0294d",
+      "size": 1292,
+      "mtimeMs": 1779599707316.805,
       "category": "config"
     },
     "pnpm-lock.yaml": {
@@ -65,9 +65,9 @@
       "category": "source"
     },
     "src/cli.ts": {
-      "hash": "065543f366928a7ebe2726c5e4f9d19f665861e13ecdce6f8487507ab2cc970b",
-      "size": 3733,
-      "mtimeMs": 1779596639044.68,
+      "hash": "89fae5cc7ca630838bde0bc071eb70b96f403ffc4d602919fc02de70a10a8363",
+      "size": 3953,
+      "mtimeMs": 1779599850081.5603,
       "category": "source"
     },
     "src/commands/guide.ts": {
@@ -176,6 +176,12 @@
       "hash": "e2376fd8df3caeefa0bcb91773a8d8b686ea9847b0a717dbd32ed2e240d25c6f",
       "size": 963,
       "mtimeMs": 1779551992412.5432,
+      "category": "test"
+    },
+    "test/cli-entrypoint.test.ts": {
+      "hash": "cad2e5236fa46f19b59db0302a8fc88182eec9a0be2eaaf5cd8bed369291b0fd",
+      "size": 637,
+      "mtimeMs": 1779599850202.56,
       "category": "test"
     },
     "test/cli.test.ts": {
@@ -342,9 +348,9 @@
       ]
     },
     "src/cli.ts": {
-      "hash": "065543f366928a7ebe2726c5e4f9d19f665861e13ecdce6f8487507ab2cc970b",
-      "size": 3733,
-      "mtimeMs": 1779596639044.68,
+      "hash": "89fae5cc7ca630838bde0bc071eb70b96f403ffc4d602919fc02de70a10a8363",
+      "size": 3953,
+      "mtimeMs": 1779599850081.5603,
       "category": "source",
       "claimIds": [
         "claim-cli-dispatch-001"
@@ -529,7 +535,7 @@
     }
   },
   "inventory": {
-    "summary": "Detected Node package projnavi. Indexed 42 relevant files. Detected 7 test files.",
+    "summary": "Detected Node package projnavi. Indexed 43 relevant files. Detected 8 test files.",
     "packageName": "projnavi",
     "packageScripts": [
       "benchmark:guide",
@@ -548,10 +554,11 @@
       "docs": 8,
       "config": 4,
       "source": 23,
-      "test": 7
+      "test": 8
     },
     "tests": [
       "test/claims.test.ts",
+      "test/cli-entrypoint.test.ts",
       "test/cli.test.ts",
       "test/fixtures/fake-repo/src/api/users.test.ts",
       "test/guide.test.ts",

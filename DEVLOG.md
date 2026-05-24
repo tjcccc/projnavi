@@ -16,6 +16,7 @@
 - Added `scripts/compare-guide.mjs` and `docs/benchmark-plan.md` to measure context reduction from projnavi.
 - Added `TODO.md` for post-MVP polish items.
 - Added npm package metadata; actual npm publishing remains manual.
+- Fixed global npm binary execution by resolving symlinked bin paths before checking the CLI entrypoint, and made the built `dist/cli.js` executable.
 - Verified the current MVP with:
   - `pnpm typecheck`
   - `pnpm lint`

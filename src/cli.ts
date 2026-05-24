@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { realpathSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { runGuide } from "./commands/guide.js";
@@ -118,11 +119,19 @@ function ensureTrailingNewline(value: string): string {
   return value.endsWith("\n") ? value : `${value}\n`;
 }
 
-const currentFile = fileURLToPath(import.meta.url);
-const invokedFile = process.argv[1] ? path.resolve(process.argv[1]) : "";
+const currentFile = realpathSync(fileURLToPath(import.meta.url));
+const invokedFile = process.argv[1] ? realpathOrResolved(process.argv[1]) : "";
 
 if (currentFile === invokedFile) {
   runCli().then((exitCode) => {
     process.exitCode = exitCode;
   });
+}
+
+export function realpathOrResolved(filePath: string): string {
+  try {
+    return realpathSync(filePath);
+  } catch {
+    return path.resolve(filePath);
+  }
 }
