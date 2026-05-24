@@ -1,7 +1,7 @@
 {
   "name": "projnavi",
   "version": "0.1.0",
-  "private": true,
+  "description": "Local navigation briefs for coding agents",
   "type": "module",
   "bin": {
     "projnavi": "./dist/cli.js"
@@ -9,8 +9,24 @@
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "docs"
   ],
+  "keywords": [
+    "coding-agent",
+    "cli",
+    "onboarding",
+    "navigation",
+    "codex"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjcccc/projnavi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tjcccc/projnavi/issues"
+  },
+  "homepage": "https://github.com/tjcccc/projnavi#readme",
   "engines": {
     "node": ">=20"
   },

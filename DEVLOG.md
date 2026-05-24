@@ -15,6 +15,7 @@
 - Added project `AGENTS.md` guidance so agents can treat `projnavi onboard` and `projnavi benchmark` as short workflow prompts.
 - Added `scripts/compare-guide.mjs` and `docs/benchmark-plan.md` to measure context reduction from projnavi.
 - Added `TODO.md` for post-MVP polish items.
+- Added npm package metadata; actual npm publishing remains manual.
 - Verified the current MVP with:
   - `pnpm typecheck`
   - `pnpm lint`

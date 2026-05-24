@@ -1,7 +1,7 @@
 {
   "version": 1,
   "projnaviVersion": "0.1.0",
-  "generatedAt": "2026-05-24T04:53:26.428Z",
+  "generatedAt": "2026-05-24T05:04:25.884Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
@@ -11,15 +11,15 @@
       "category": "docs"
     },
     "CHANGELOG.md": {
-      "hash": "b1a2dc8ba379c5ef69ef56e7493cf58c987acf79352ddc307188def4bd2a7735",
-      "size": 874,
-      "mtimeMs": 1779598241335.7485,
+      "hash": "f936e7f976e265d750903c5a1eb2afeda2e4c880f593206cb43fa0905d5b0d8d",
+      "size": 904,
+      "mtimeMs": 1779599043278.0552,
       "category": "docs"
     },
     "DEVLOG.md": {
-      "hash": "0bfde6af4457ec2b924d6d7f581063e756e2405bed43f0537b5d0471cbfa2e0e",
-      "size": 1424,
-      "mtimeMs": 1779598398787.4087,
+      "hash": "58f902cf74f1282bc68cfd4ebf335e3e8727e82a91259c66086e986b9db93822",
+      "size": 1492,
+      "mtimeMs": 1779599043278.0552,
       "category": "docs"
     },
     "docs/benchmark-plan.md": {
@@ -41,9 +41,9 @@
       "category": "config"
     },
     "package.json": {
-      "hash": "63289ca6043b4c61b8b9929a2788ce704977742a823a19bea1086a9f5659a033",
-      "size": 835,
-      "mtimeMs": 1779597398230.3213,
+      "hash": "4896137cfc2b45fd3b7199d3b9989f1e10958006bb75745c0aff5938958d4af1",
+      "size": 1227,
+      "mtimeMs": 1779598911487.3318,
       "category": "config"
     },
     "pnpm-lock.yaml": {
@@ -55,7 +55,7 @@
     "README.md": {
       "hash": "f89532c37b8d51ec626db97c917c6cbae14c9b2c059e058fa15d0c490597ec01",
       "size": 3942,
-      "mtimeMs": 1779598241335.7485,
+      "mtimeMs": 1779599043278.0552,
       "category": "docs"
     },
     "scripts/compare-guide.mjs": {
