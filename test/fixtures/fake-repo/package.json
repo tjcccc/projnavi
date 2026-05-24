@@ -1,0 +1,7 @@
+{
+  "name": "fake-users-app",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  }
+}

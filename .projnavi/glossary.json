@@ -1,0 +1,52 @@
+{
+  "terms": [
+    {
+      "term": "guide ranking",
+      "aliases": ["task brief ranking", "guide scoring", "read first ranking", "high precision matching"],
+      "mapsTo": ["buildTaskBrief", "rankClaims", "rankGlossaryTerms"],
+      "topics": ["guide", "ranking", "task brief"],
+      "paths": ["src/core/guide-ranking.ts", "src/commands/guide.ts"],
+      "notes": "Use this when changing how projnavi guide chooses read-first files, concepts, tests, evidence, warnings, or confidence."
+    },
+    {
+      "term": "stale evidence",
+      "aliases": ["freshness", "verify stale claims", "changed evidence", "missing evidence"],
+      "mapsTo": ["verifyFreshness", "verifyAgainstManifest", "manifest evidence"],
+      "topics": ["verify", "manifest", "staleness"],
+      "paths": ["src/core/verify.ts", "src/commands/verify.ts", "src/core/onboard-scan.ts"],
+      "notes": "Use this when changing stale detection, evidence hashes, missing file handling, or verify exit codes."
+    },
+    {
+      "term": "onboard manifest",
+      "aliases": ["static onboarding", "repo scan", "file hashes", "manifest generation"],
+      "mapsTo": ["scanForManifest", "manifest.json"],
+      "topics": ["onboard", "manifest", "hashing"],
+      "paths": ["src/core/onboard-scan.ts", "src/commands/onboard.ts", "src/core/manifest.ts"],
+      "notes": "Use this when changing deterministic repo scanning or manifest inventory behavior."
+    },
+    {
+      "term": "init no overwrite",
+      "aliases": ["init force", "scaffold", "skip existing files", "codex agent init", "agent instructions"],
+      "mapsTo": ["runInit", "ensureCodexAgentsInstructions", "CODEX_AGENTS_SECTION"],
+      "topics": ["init", "templates", "safe writes", "agent setup"],
+      "paths": ["src/commands/init.ts", "src/core/templates.ts", "test/init.test.ts"],
+      "notes": "Use this when changing .projnavi scaffold behavior, overwrite rules, or generated Codex AGENTS.md instructions."
+    },
+    {
+      "term": "claim schema",
+      "aliases": ["claims.jsonl", "claim validation", "JSONL parsing"],
+      "mapsTo": ["Claim", "validateClaim", "parseClaimsJsonl"],
+      "topics": ["claims", "schema", "jsonl"],
+      "paths": ["src/core/schemas.ts", "src/core/claims.ts", "test/claims.test.ts"],
+      "notes": "Use this when changing claim validation, parser warnings, strict behavior, or allowed claim fields."
+    },
+    {
+      "term": "guide benchmark",
+      "aliases": ["token savings benchmark", "without projnavi vs with projnavi", "compare guide", "benchmark plan"],
+      "mapsTo": ["scripts/compare-guide.mjs", "docs/benchmark-plan.md"],
+      "topics": ["benchmark", "guide", "tokens", "evaluation"],
+      "paths": ["scripts/compare-guide.mjs", "docs/benchmark-plan.md", ".projnavi/flows/benchmark-guide.md"],
+      "notes": "Use this when measuring whether projnavi reduces first-pass exploration context."
+    }
+  ]
+}

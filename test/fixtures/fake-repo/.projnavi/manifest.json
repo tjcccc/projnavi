@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "projnaviVersion": "0.1.0",
+  "generatedAt": "2026-05-23T00:00:00.000Z",
+  "root": ".",
+  "files": {},
+  "notes": {},
+  "evidence": {},
+  "inventory": {
+    "summary": "Fixture manifest. Run projnavi onboard in tests.",
+    "topLevelDirectories": [],
+    "fileCounts": {},
+    "tests": []
+  }
+}

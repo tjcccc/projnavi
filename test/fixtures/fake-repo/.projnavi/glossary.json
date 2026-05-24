@@ -1,0 +1,12 @@
+{
+  "terms": [
+    {
+      "term": "get users",
+      "aliases": ["list users", "users endpoint", "fetch users"],
+      "mapsTo": ["UserService", "GET /users"],
+      "topics": ["users", "api"],
+      "paths": ["src/api/users.ts"],
+      "notes": "Use this when the task mentions retrieving users."
+    }
+  ]
+}
