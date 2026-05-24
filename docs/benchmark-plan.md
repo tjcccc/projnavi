@@ -10,10 +10,10 @@ The benchmark compares two dry-run investigation protocols for the same task:
 ## Default Task
 
 ```text
-Add support for projnavi init --agent claude that creates project-scoped Claude guidance/skill while preserving existing files.
+Add compact guide output with --compact and --max-items support while keeping guide output high precision.
 ```
 
-This task is intentionally cross-cutting: CLI parsing, init behavior, templates, tests, docs, and agent guidance may all be relevant.
+This task is intentionally cross-cutting: CLI parsing, guide ranking, output formatting, tests, docs, and agent guidance may all be relevant.
 
 ## Run
 
@@ -71,7 +71,7 @@ For the default task, projnavi should usually:
 
 - reduce approximate tokens by at least 30%
 - reduce output lines by at least 25%
-- point to `src/commands/init.ts`, `src/core/templates.ts`, and `test/init.test.ts`
+- point to `src/commands/guide.ts`, `src/core/guide-ranking.ts`, and `test/guide.test.ts`
 - report no stale data warnings
 - avoid more than 8 read-first items
 

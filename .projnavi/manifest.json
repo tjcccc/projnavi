@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "projnaviVersion": "0.1.0",
-  "generatedAt": "2026-05-24T05:49:33.631Z",
+  "projnaviVersion": "0.2.0",
+  "generatedAt": "2026-05-24T06:49:15.406Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
@@ -11,21 +11,27 @@
       "category": "docs"
     },
     "CHANGELOG.md": {
-      "hash": "c2773c4f7c4cb5c247e9bff0edfacc7d59e5bd8bcc1bd372382b1a46ceef370e",
-      "size": 1125,
-      "mtimeMs": 1779600130770.0793,
+      "hash": "353038ef15b44111883726f47744acb54ffd64c9203826efc14e9517a81f4474",
+      "size": 1573,
+      "mtimeMs": 1779605270808.3474,
       "category": "docs"
     },
     "DEVLOG.md": {
-      "hash": "47c64e2c8e1c2a6cc96a920525643424f44927db14be39bc3617a78c79b5cfed",
-      "size": 1901,
-      "mtimeMs": 1779601756696.2532,
+      "hash": "3499f3676d77d998d6a2b141f6923b811969d7ded31a1caad4ec8740fbff25a9",
+      "size": 2366,
+      "mtimeMs": 1779605270939.3735,
       "category": "docs"
     },
     "docs/benchmark-plan.md": {
-      "hash": "0f14bd957209c78820b492776aed5669422996e3b6e4da16e88d220bf6f691bf",
-      "size": 2883,
-      "mtimeMs": 1779598077805.105,
+      "hash": "212deae782b3eab02c72d4e208eff99fd8ef26ff09292eacacabb25bb6e8dc8f",
+      "size": 2876,
+      "mtimeMs": 1779604692356.6309,
+      "category": "docs"
+    },
+    "docs/claude-usage.md": {
+      "hash": "d0a73cfa5c24f5197a314593149cdc2ba478b0f560d65ed98b3eddeb581d52e0",
+      "size": 791,
+      "mtimeMs": 1779604556132.9268,
       "category": "docs"
     },
     "docs/codex-usage.md": {
@@ -41,9 +47,9 @@
       "category": "config"
     },
     "package.json": {
-      "hash": "0aae7805c4e46ec9b74bc5a71f41e26d57f02f857f56382f8809dcd6aa5009ed",
-      "size": 1292,
-      "mtimeMs": 1779600130639.0796,
+      "hash": "af7ca4c62f536e6cbe0026eaf47e42d1bb6954955fa522d0fe29d6deebe72c36",
+      "size": 1311,
+      "mtimeMs": 1779605270680.8193,
       "category": "config"
     },
     "pnpm-lock.yaml": {
@@ -53,21 +59,21 @@
       "category": "source"
     },
     "README.md": {
-      "hash": "f89532c37b8d51ec626db97c917c6cbae14c9b2c059e058fa15d0c490597ec01",
-      "size": 3942,
-      "mtimeMs": 1779599043278.0552,
+      "hash": "50a22e670662abbb9fb501534036e38f2613df29d985b2f0b746b00ac8035165",
+      "size": 4906,
+      "mtimeMs": 1779604579665.8757,
       "category": "docs"
     },
     "scripts/compare-guide.mjs": {
-      "hash": "9e19e7d17b4d0929c47d847b16ea5a490b0319b28b3e45e5cb2eed49fd7075bc",
-      "size": 5233,
-      "mtimeMs": 1779598099338.0662,
+      "hash": "b72e5dc36d05128e6da23ccfa45c67f5a6fbdeddb4df656fa4f3de453614e828",
+      "size": 5375,
+      "mtimeMs": 1779604692227.631,
       "category": "source"
     },
     "src/cli.ts": {
-      "hash": "89fae5cc7ca630838bde0bc071eb70b96f403ffc4d602919fc02de70a10a8363",
-      "size": 3953,
-      "mtimeMs": 1779599850081.5603,
+      "hash": "ba666b3c73b4b449eb36898b9097fc864ad2c1b769404a7527691bcf79554077",
+      "size": 4008,
+      "mtimeMs": 1779604466449.1226,
       "category": "source"
     },
     "src/commands/guide.ts": {
@@ -77,9 +83,9 @@
       "category": "source"
     },
     "src/commands/init.ts": {
-      "hash": "959a764e165723363d108582c1729129a15bb94f142c4f5ab5610bbc2d30e1ee",
-      "size": 4364,
-      "mtimeMs": 1779596639044.68,
+      "hash": "c22eac220dd6618472c6aaa7e97412b2e7d6fa0f407389bea5d0f26b513fba42",
+      "size": 5715,
+      "mtimeMs": 1779604466322.8352,
       "category": "source"
     },
     "src/commands/notes.ts": {
@@ -125,9 +131,9 @@
       "category": "source"
     },
     "src/core/manifest.ts": {
-      "hash": "c763095a092e9c5b55fed5976f9652015f0333ca6d366671031aa88e7a48f6e8",
+      "hash": "70d541edd9832791db96080221349f74240e59a9ba773a2baf8c07f4f096de4a",
       "size": 5911,
-      "mtimeMs": 1779551919836.7104,
+      "mtimeMs": 1779605333536.2373,
       "category": "source"
     },
     "src/core/notes.ts": {
@@ -161,9 +167,9 @@
       "category": "source"
     },
     "src/core/templates.ts": {
-      "hash": "d165734d9713eb33b675b83e70e797378d702f995a117ad9445858506ea3baa8",
-      "size": 4634,
-      "mtimeMs": 1779598077804.105,
+      "hash": "0fe5d2d59815aef32d34188e658aeeffc865ed8fdaf35d1b9e81a26d6f9a4d5a",
+      "size": 6670,
+      "mtimeMs": 1779604672395.674,
       "category": "source"
     },
     "src/core/verify.ts": {
@@ -227,9 +233,9 @@
       "category": "source"
     },
     "test/init.test.ts": {
-      "hash": "441746e653900649cf3242aed8dd6046d0f59bb7953bcb4b87105ece4234bd9e",
-      "size": 2823,
-      "mtimeMs": 1779598077805.105,
+      "hash": "f3461c7fc71b24edcc297aecab4fb706f0f53c0a1086e6012ee0f45ea8f86fd2",
+      "size": 5681,
+      "mtimeMs": 1779604821631.3499,
       "category": "test"
     },
     "test/notes.test.ts": {
@@ -245,9 +251,9 @@
       "category": "test"
     },
     "TODO.md": {
-      "hash": "e35ce7a457f52e594cca3ec6f56f09d537a19ad3ff96277ffe0a69140ef618ab",
-      "size": 2747,
-      "mtimeMs": 1779601756559.7856,
+      "hash": "2d7ba844ff16632c02ed32815a439ca4f5ef88afa7e13bcc3733bc4ce46913f0",
+      "size": 2764,
+      "mtimeMs": 1779604556258.9531,
       "category": "docs"
     },
     "tsconfig.json": {
@@ -301,9 +307,9 @@
       "category": "note"
     },
     ".projnavi/flows/benchmark-guide.md": {
-      "hash": "9afe3d8b14c35ac284f09c0c78dcbdf3c93113f823c9a7ce8fe46bf094b8c982",
-      "size": 813,
-      "mtimeMs": 1779598077805.105,
+      "hash": "194ba75d6da5ea8d0bd82e8643b5fabec25fa358b00ae34d6e322c82af4945b6",
+      "size": 792,
+      "mtimeMs": 1779604692489.6304,
       "category": "note"
     },
     ".projnavi/flows/common-change.md": {
@@ -330,27 +336,36 @@
       ]
     },
     "docs/benchmark-plan.md": {
-      "hash": "0f14bd957209c78820b492776aed5669422996e3b6e4da16e88d220bf6f691bf",
-      "size": 2883,
-      "mtimeMs": 1779598077805.105,
+      "hash": "212deae782b3eab02c72d4e208eff99fd8ef26ff09292eacacabb25bb6e8dc8f",
+      "size": 2876,
+      "mtimeMs": 1779604692356.6309,
       "category": "docs",
       "claimIds": [
         "claim-guide-benchmark-001"
       ]
     },
+    "docs/claude-usage.md": {
+      "hash": "d0a73cfa5c24f5197a314593149cdc2ba478b0f560d65ed98b3eddeb581d52e0",
+      "size": 791,
+      "mtimeMs": 1779604556132.9268,
+      "category": "docs",
+      "claimIds": [
+        "claim-init-claude-agent-001"
+      ]
+    },
     "scripts/compare-guide.mjs": {
-      "hash": "9e19e7d17b4d0929c47d847b16ea5a490b0319b28b3e45e5cb2eed49fd7075bc",
-      "size": 5233,
-      "mtimeMs": 1779598099338.0662,
+      "hash": "b72e5dc36d05128e6da23ccfa45c67f5a6fbdeddb4df656fa4f3de453614e828",
+      "size": 5375,
+      "mtimeMs": 1779604692227.631,
       "category": "source",
       "claimIds": [
         "claim-guide-benchmark-001"
       ]
     },
     "src/cli.ts": {
-      "hash": "89fae5cc7ca630838bde0bc071eb70b96f403ffc4d602919fc02de70a10a8363",
-      "size": 3953,
-      "mtimeMs": 1779599850081.5603,
+      "hash": "ba666b3c73b4b449eb36898b9097fc864ad2c1b769404a7527691bcf79554077",
+      "size": 4008,
+      "mtimeMs": 1779604466449.1226,
       "category": "source",
       "claimIds": [
         "claim-cli-dispatch-001"
@@ -367,12 +382,13 @@
       ]
     },
     "src/commands/init.ts": {
-      "hash": "959a764e165723363d108582c1729129a15bb94f142c4f5ab5610bbc2d30e1ee",
-      "size": 4364,
-      "mtimeMs": 1779596639044.68,
+      "hash": "c22eac220dd6618472c6aaa7e97412b2e7d6fa0f407389bea5d0f26b513fba42",
+      "size": 5715,
+      "mtimeMs": 1779604466322.8352,
       "category": "source",
       "claimIds": [
         "claim-cli-dispatch-001",
+        "claim-init-claude-agent-001",
         "claim-init-codex-agent-001",
         "claim-init-safe-writes-001"
       ]
@@ -434,9 +450,9 @@
       ]
     },
     "src/core/manifest.ts": {
-      "hash": "c763095a092e9c5b55fed5976f9652015f0333ca6d366671031aa88e7a48f6e8",
+      "hash": "70d541edd9832791db96080221349f74240e59a9ba773a2baf8c07f4f096de4a",
       "size": 5911,
-      "mtimeMs": 1779551919836.7104,
+      "mtimeMs": 1779605333536.2373,
       "category": "source",
       "claimIds": [
         "claim-onboard-manifest-001"
@@ -461,11 +477,12 @@
       ]
     },
     "src/core/templates.ts": {
-      "hash": "d165734d9713eb33b675b83e70e797378d702f995a117ad9445858506ea3baa8",
-      "size": 4634,
-      "mtimeMs": 1779598077804.105,
+      "hash": "0fe5d2d59815aef32d34188e658aeeffc865ed8fdaf35d1b9e81a26d6f9a4d5a",
+      "size": 6670,
+      "mtimeMs": 1779604672395.674,
       "category": "source",
       "claimIds": [
+        "claim-init-claude-agent-001",
         "claim-init-codex-agent-001",
         "claim-init-safe-writes-001"
       ]
@@ -515,11 +532,12 @@
       ]
     },
     "test/init.test.ts": {
-      "hash": "441746e653900649cf3242aed8dd6046d0f59bb7953bcb4b87105ece4234bd9e",
-      "size": 2823,
-      "mtimeMs": 1779598077805.105,
+      "hash": "f3461c7fc71b24edcc297aecab4fb706f0f53c0a1086e6012ee0f45ea8f86fd2",
+      "size": 5681,
+      "mtimeMs": 1779604821631.3499,
       "category": "test",
       "claimIds": [
+        "claim-init-claude-agent-001",
         "claim-init-codex-agent-001",
         "claim-init-safe-writes-001"
       ]
@@ -535,7 +553,7 @@
     }
   },
   "inventory": {
-    "summary": "Detected Node package projnavi. Indexed 43 relevant files. Detected 8 test files.",
+    "summary": "Detected Node package projnavi. Indexed 44 relevant files. Detected 8 test files.",
     "packageName": "projnavi",
     "packageScripts": [
       "benchmark:guide",
@@ -551,7 +569,7 @@
       "test"
     ],
     "fileCounts": {
-      "docs": 8,
+      "docs": 9,
       "config": 4,
       "source": 23,
       "test": 8

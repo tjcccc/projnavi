@@ -8,7 +8,9 @@ const repoRoot = process.cwd();
 const args = process.argv.slice(2);
 const jsonOutput = args.includes("--json");
 const taskArgs = args.filter((arg) => arg !== "--json");
-const task = taskArgs.join(" ") || "Add support for projnavi init --agent claude that creates project-scoped Claude guidance/skill while preserving existing files.";
+const task =
+  taskArgs.join(" ") ||
+  "Add compact guide output with --compact and --max-items support while keeping guide output high precision.";
 
 const noProjnaviCommands = [
   ["git", ["status", "--short"]],
@@ -34,21 +36,23 @@ const noProjnaviCommands = [
       "./.projnavi/*"
     ]
   ],
-  ["rg", ["-n", "agent|AGENTS|codex|claude|skill|init|force", "src", "test", "README.md", "docs", "AGENTS.md"]],
+  ["rg", ["-n", "guide|ranking|compact|max-items|task brief|read first|format", "src", "test", "README.md", "docs", "AGENTS.md", "TODO.md"]],
   ["sed", ["-n", "1,150p", "src/cli.ts"]],
-  ["sed", ["-n", "1,180p", "src/commands/init.ts"]],
-  ["sed", ["-n", "1,180p", "src/core/templates.ts"]],
-  ["sed", ["-n", "1,170p", "test/init.test.ts"]],
+  ["sed", ["-n", "1,120p", "src/commands/guide.ts"]],
+  ["sed", ["-n", "1,220p", "src/core/guide-ranking.ts"]],
+  ["sed", ["-n", "405,455p", "src/core/guide-ranking.ts"]],
+  ["sed", ["-n", "1,180p", "test/guide.test.ts"]],
   ["sed", ["-n", "1,180p", "README.md"]],
-  ["sed", ["-n", "1,160p", "AGENTS.md"]]
+  ["sed", ["-n", "1,120p", "TODO.md"]]
 ];
 
 const withProjnaviCommands = [
   ["node", ["dist/cli.js", "guide", task]],
   ["sed", ["-n", "1,150p", "src/cli.ts"]],
-  ["sed", ["-n", "1,180p", "src/commands/init.ts"]],
-  ["sed", ["-n", "1,180p", "src/core/templates.ts"]],
-  ["sed", ["-n", "1,170p", "test/init.test.ts"]]
+  ["sed", ["-n", "1,120p", "src/commands/guide.ts"]],
+  ["sed", ["-n", "1,220p", "src/core/guide-ranking.ts"]],
+  ["sed", ["-n", "405,455p", "src/core/guide-ranking.ts"]],
+  ["sed", ["-n", "1,180p", "test/guide.test.ts"]]
 ];
 
 const noProjnavi = runProtocol("no-projnavi", noProjnaviCommands);

@@ -38,6 +38,60 @@ describe("init command", () => {
     expect(agents).toContain("read-only benchmark request");
   });
 
+  it("prints an agent hint when no agent is requested", async () => {
+    const root = await makeEmptyTempDir();
+    const result = await runInit(root, { force: false });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain("hint: to add agent instructions");
+    expect(result.stdout).toContain("projnavi init --agent codex");
+    expect(result.stdout).toContain("projnavi init --agent claude");
+    await expect(fs.stat(path.join(root, "AGENTS.md"))).rejects.toMatchObject({ code: "ENOENT" });
+  });
+
+  it("creates a Claude Code project skill when requested", async () => {
+    const root = await makeEmptyTempDir();
+    const result = await runInit(root, { agent: "claude", force: false });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain("created .claude/skills/projnavi/SKILL.md with projnavi Claude skill");
+
+    const skill = await fs.readFile(path.join(root, ".claude", "skills", "projnavi", "SKILL.md"), "utf8");
+    expect(skill).toContain("name: projnavi");
+    expect(skill).toContain('argument-hint: "onboard | benchmark | <task>"');
+    expect(skill).toContain("If `$ARGUMENTS` is `onboard`");
+    expect(skill).toContain("If `$ARGUMENTS` is `benchmark`");
+    expect(skill).toContain("If `$ARGUMENTS` is empty");
+    expect(skill).toContain('projnavi guide "$ARGUMENTS"');
+  });
+
+  it("does not overwrite a user-created Claude skill unless force is provided", async () => {
+    const root = await makeEmptyTempDir();
+    const skillPath = path.join(root, ".claude", "skills", "projnavi", "SKILL.md");
+    await fs.mkdir(path.dirname(skillPath), { recursive: true });
+    await fs.writeFile(skillPath, "# User skill\n", "utf8");
+
+    const skipped = await runInit(root, { agent: "claude", force: false });
+    expect(skipped.stdout).toContain("skipped .claude/skills/projnavi/SKILL.md");
+    await expect(fs.readFile(skillPath, "utf8")).resolves.toBe("# User skill\n");
+
+    const overwritten = await runInit(root, { agent: "claude", force: true });
+    expect(overwritten.stdout).toContain("updated .claude/skills/projnavi/SKILL.md with projnavi Claude skill");
+    await expect(fs.readFile(skillPath, "utf8")).resolves.toContain("name: projnavi");
+  });
+
+  it("updates managed Claude skill idempotently", async () => {
+    const root = await makeEmptyTempDir();
+    const first = await runInit(root, { agent: "claude", force: false });
+    expect(first.stdout).toContain("created .claude/skills/projnavi/SKILL.md with projnavi Claude skill");
+
+    const second = await runInit(root, { agent: "claude", force: false });
+    expect(second.stdout).toContain("left .claude/skills/projnavi/SKILL.md unchanged");
+
+    const skill = await fs.readFile(path.join(root, ".claude", "skills", "projnavi", "SKILL.md"), "utf8");
+    expect(skill.match(/projnavi-agent-claude:start/g)).toHaveLength(1);
+  });
+
   it("updates the managed Codex AGENTS.md section without replacing existing guidance", async () => {
     const root = await makeEmptyTempDir();
     const agentsPath = path.join(root, "AGENTS.md");

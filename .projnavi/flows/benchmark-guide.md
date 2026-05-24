@@ -5,7 +5,7 @@ Use `docs/benchmark-plan.md` and `scripts/compare-guide.mjs` to compare dry-run 
 Default benchmark task:
 
 ```text
-Add support for projnavi init --agent claude that creates project-scoped Claude guidance/skill while preserving existing files.
+Add compact guide output with --compact and --max-items support while keeping guide output high precision.
 ```
 
 The benchmark records wall time, command count, output bytes, output lines, word count, approximate tokens, and output file paths.

@@ -41,10 +41,10 @@ Post-MVP roadmap. Keep the work focused on the core loop:
 ## Agent integration
 
 - [x] Add `projnavi init --agent codex`.
-- [ ] Add `projnavi init --agent claude` once the exact Claude project-scoped guidance files are decided.
-- [ ] Preserve existing agent files and update only managed sections.
-- [ ] Add tests for idempotence and preservation of user-edited agent content.
-- [ ] Document Codex `AGENTS.md` and Claude `CLAUDE.md` usage.
+- [x] Add `projnavi init --agent claude` with a project-scoped `.claude/skills/projnavi/SKILL.md`.
+- [x] Preserve existing agent files and update only managed sections or managed files.
+- [x] Add tests for idempotence and preservation of user-edited agent content.
+- [x] Document Codex `AGENTS.md` and Claude Code project skill usage.
 
 ## Later
 

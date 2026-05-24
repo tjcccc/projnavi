@@ -21,10 +21,33 @@ projnavi onboard
 
 The generated project `AGENTS.md` tells Codex to expand that short prompt into the full onboarding workflow.
 
-To compare first-pass investigation with and without projnavi, ask:
+For Claude Code users, use a project skill instead:
+
+```bash
+npm install -g projnavi
+cd the-project
+projnavi init --agent claude
+claude
+```
+
+Then ask Claude Code:
+
+```text
+/projnavi onboard
+```
+
+The generated project skill at `.claude/skills/projnavi/SKILL.md` supports `onboard`, `benchmark`, and guide-style task arguments.
+
+To compare first-pass investigation with and without projnavi, ask Codex:
 
 ```text
 projnavi benchmark
+```
+
+or ask Claude Code:
+
+```text
+/projnavi benchmark
 ```
 
 ## What It Is Not
@@ -42,22 +65,26 @@ Its output is navigation advice, not ground truth. Coding agents must verify sou
 ## MVP Workflow
 
 1. A human runs `projnavi init --agent codex` to create `.projnavi` and project instructions.
-2. The human asks the agent `projnavi onboard`.
-3. The agent runs `projnavi onboard`, inspects the repo, improves `.projnavi` notes/glossary/claims, runs `projnavi onboard` again, and then runs `projnavi verify`.
-4. For future broad tasks, the agent runs `projnavi guide "<task>"` before reading large parts of the repo.
-5. `projnavi verify` checks whether evidence or indexed files changed since onboarding.
+2. Or, for Claude Code, a human runs `projnavi init --agent claude` to create `.projnavi` and `.claude/skills/projnavi/SKILL.md`.
+3. The human asks the agent `projnavi onboard` in Codex or `/projnavi onboard` in Claude Code.
+4. The agent runs `projnavi onboard`, inspects the repo, improves `.projnavi` notes/glossary/claims, runs `projnavi onboard` again, and then runs `projnavi verify`.
+5. For future broad tasks, the agent runs `projnavi guide "<task>"` before reading large parts of the repo.
+6. `projnavi verify` checks whether evidence or indexed files changed since onboarding.
 
 ## Commands
 
 ```bash
 projnavi init
 projnavi init --agent codex
+projnavi init --agent claude
 projnavi onboard
 projnavi guide "get users"
 projnavi guide "get users" --format json
 projnavi notes users
 projnavi verify
 ```
+
+Plain `projnavi init` only creates the `.projnavi` scaffold. Use `projnavi init --agent codex` to create or update project `AGENTS.md` instructions for Codex, or `projnavi init --agent claude` to create the Claude Code project skill.
 
 ## Example `.projnavi` Files
 
@@ -113,6 +140,14 @@ projnavi benchmark
 ```
 
 the agent should perform a read-only comparison: choose a realistic complex task, dry-run investigation with and without projnavi, and report command count, output size, approximate tokens, relevance, and caveats.
+
+Claude Code users can invoke the generated project skill directly:
+
+```text
+/projnavi onboard
+/projnavi benchmark
+/projnavi <task>
+```
 
 ## Development
 

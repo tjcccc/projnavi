@@ -26,11 +26,11 @@
     },
     {
       "term": "init no overwrite",
-      "aliases": ["init force", "scaffold", "skip existing files", "codex agent init", "agent instructions"],
-      "mapsTo": ["runInit", "ensureCodexAgentsInstructions", "CODEX_AGENTS_SECTION"],
+      "aliases": ["init force", "scaffold", "skip existing files", "codex agent init", "claude agent init", "claude code skill", "agent instructions"],
+      "mapsTo": ["runInit", "ensureCodexAgentsInstructions", "ensureClaudeProjectSkill", "CODEX_AGENTS_SECTION", "CLAUDE_PROJECT_SKILL"],
       "topics": ["init", "templates", "safe writes", "agent setup"],
       "paths": ["src/commands/init.ts", "src/core/templates.ts", "test/init.test.ts"],
-      "notes": "Use this when changing .projnavi scaffold behavior, overwrite rules, or generated Codex AGENTS.md instructions."
+      "notes": "Use this when changing .projnavi scaffold behavior, overwrite rules, generated Codex AGENTS.md instructions, or the Claude Code project skill."
     },
     {
       "term": "claim schema",

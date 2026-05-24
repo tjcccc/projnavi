@@ -6,7 +6,7 @@ import { isPlainObject } from "./schemas.js";
 import { normalizeRelPath, projnaviPath, resolveInRoot } from "./paths.js";
 import { createInitialManifest } from "./templates.js";
 
-export const PROJNAVI_VERSION = "0.1.0";
+export const PROJNAVI_VERSION = "0.2.0";
 
 export async function hashFile(filePath: string): Promise<string> {
   const content = await fs.readFile(filePath);

@@ -6,6 +6,7 @@
 - Implemented the MVP commands:
   - `projnavi init`
   - `projnavi init --agent codex`
+  - `projnavi init --agent claude`
   - `projnavi onboard`
   - `projnavi guide "<task>"`
   - `projnavi guide "<task>" --format json`
@@ -19,6 +20,9 @@
 - Fixed global npm binary execution by resolving symlinked bin paths before checking the CLI entrypoint, and made the built `dist/cli.js` executable.
 - Prepared v0.1.1 as the release version for the global-install fix.
 - Expanded `TODO.md` into a focused post-MVP roadmap for guide precision, benchmark quality, data quality, freshness, onboarding, and agent integration without changing the package version.
+- Added a plain `projnavi init` hint that tells users to run `projnavi init --agent codex` when they want Codex `AGENTS.md` instructions.
+- Added `projnavi init --agent claude`, which creates a project-scoped Claude Code skill at `.claude/skills/projnavi/SKILL.md` for `/projnavi onboard`, `/projnavi benchmark`, and guide-style task arguments.
+- Prepared v0.2.0 as the release version for Claude Code project skill support.
 - Verified the current MVP with:
   - `pnpm typecheck`
   - `pnpm lint`
@@ -32,4 +36,4 @@
 
 - The MVP is intentionally local and deterministic. It does not call external LLMs, embedding APIs, vector databases, network services, MCP servers, or Codex Skill implementations.
 - `onboard` currently recreates scaffold example notes if they are missing because it defensively runs init. This is acceptable for MVP but should be revisited.
-- Claude agent setup is not implemented yet; `init --agent codex` is the only supported agent setup flag.
+- Claude Code setup uses a project-scoped skill instead of writing full command instructions into `CLAUDE.md`.

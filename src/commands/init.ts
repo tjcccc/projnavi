@@ -3,6 +3,9 @@ import path from "node:path";
 import { PROJNAVI_VERSION, writeManifest } from "../core/manifest.js";
 import { projnaviPath } from "../core/paths.js";
 import {
+  CLAUDE_PROJECT_SKILL,
+  CLAUDE_SKILL_SECTION_END,
+  CLAUDE_SKILL_SECTION_START,
   CODEX_AGENTS_SECTION,
   CODEX_AGENTS_SECTION_END,
   CODEX_AGENTS_SECTION_START,
@@ -15,8 +18,10 @@ import {
 import type { CommandResult } from "./types.js";
 import { ok } from "./types.js";
 
+export type AgentKind = "codex" | "claude";
+
 export interface InitOptions {
-  agent?: "codex";
+  agent?: AgentKind;
   force: boolean;
 }
 
@@ -63,6 +68,10 @@ export async function runInit(root: string, options: InitOptions): Promise<Comma
 
   if (options.agent === "codex") {
     lines.push(await ensureCodexAgentsInstructions(root));
+  } else if (options.agent === "claude") {
+    lines.push(await ensureClaudeProjectSkill(root, options.force));
+  } else {
+    lines.push("hint: to add agent instructions, run `projnavi init --agent codex` or `projnavi init --agent claude`");
   }
 
   return ok(lines.join("\n"));
@@ -84,6 +93,32 @@ async function ensureCodexAgentsInstructions(root: string): Promise<string> {
   }
 
   return "updated AGENTS.md with projnavi Codex instructions";
+}
+
+async function ensureClaudeProjectSkill(root: string, force: boolean): Promise<string> {
+  const skillPath = path.join(root, ".claude", "skills", "projnavi", "SKILL.md");
+  const existing = await readOptionalFile(skillPath);
+
+  if (existing !== null && existing === CLAUDE_PROJECT_SKILL) {
+    return "left .claude/skills/projnavi/SKILL.md unchanged";
+  }
+
+  if (existing !== null && !force && !isManagedClaudeSkill(existing)) {
+    return "skipped .claude/skills/projnavi/SKILL.md";
+  }
+
+  await fs.mkdir(path.dirname(skillPath), { recursive: true });
+  await fs.writeFile(skillPath, CLAUDE_PROJECT_SKILL, "utf8");
+
+  if (existing === null) {
+    return "created .claude/skills/projnavi/SKILL.md with projnavi Claude skill";
+  }
+
+  return "updated .claude/skills/projnavi/SKILL.md with projnavi Claude skill";
+}
+
+function isManagedClaudeSkill(existing: string): boolean {
+  return existing.includes(CLAUDE_SKILL_SECTION_START) && existing.includes(CLAUDE_SKILL_SECTION_END);
 }
 
 function applyManagedSection(existing: string | null): string {

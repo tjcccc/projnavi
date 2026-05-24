@@ -3,7 +3,7 @@ import { realpathSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { runGuide } from "./commands/guide.js";
-import { runInit } from "./commands/init.js";
+import { type AgentKind, runInit } from "./commands/init.js";
 import { runNotes } from "./commands/notes.js";
 import { runOnboard } from "./commands/onboard.js";
 import { runVerify } from "./commands/verify.js";
@@ -19,7 +19,7 @@ export interface CliIO {
 const HELP = `projnavi
 
 Usage:
-  projnavi init [--force] [--agent codex]
+  projnavi init [--force] [--agent codex|claude]
   projnavi onboard
   projnavi guide "<task>" [--format json] [--strict]
   projnavi notes <topic> [--strict]
@@ -102,14 +102,14 @@ function readFlagValue(args: string[], flag: string): string | undefined {
   return args[index + 1];
 }
 
-function parseInitAgent(args: string[]): { agent?: "codex" } {
+function parseInitAgent(args: string[]): { agent?: AgentKind } {
   const agent = readFlagValue(args, "--agent");
   if (!agent) {
     return {};
   }
 
-  if (agent !== "codex") {
-    throw new Error(`Unsupported agent: ${agent}. Supported agents: codex.`);
+  if (agent !== "codex" && agent !== "claude") {
+    throw new Error(`Unsupported agent: ${agent}. Supported agents: codex, claude.`);
   }
 
   return { agent };

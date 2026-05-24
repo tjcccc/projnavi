@@ -77,6 +77,38 @@ Based on the current project, choose a realistic complex codebase task. Do not e
 \`\`\`
 ${CODEX_AGENTS_SECTION_END}`;
 
+export const CLAUDE_SKILL_SECTION_START = "<!-- projnavi-agent-claude:start -->";
+export const CLAUDE_SKILL_SECTION_END = "<!-- projnavi-agent-claude:end -->";
+
+export const CLAUDE_PROJECT_SKILL = `---
+name: projnavi
+description: Use when the user asks to onboard projnavi, benchmark projnavi, or use projnavi guide for broad codebase navigation.
+argument-hint: "onboard | benchmark | <task>"
+---
+
+${CLAUDE_SKILL_SECTION_START}
+# projnavi
+
+Use this project-local navigation layer before broad or ambiguous codebase work.
+
+If \`$ARGUMENTS\` is \`onboard\`:
+
+Run projnavi onboarding for this repo. Execute \`projnavi onboard\`, inspect the repo, improve the \`.projnavi\` project notes, module notes, flow notes, glossary, and claims for future guide queries, then run \`projnavi onboard\` again and \`projnavi verify\`. Update \`CLAUDE.md\` only if useful. Do not make unrelated code changes.
+
+If \`$ARGUMENTS\` is \`benchmark\`:
+
+Do not edit files. Based on the current project, choose a realistic complex codebase task. Dry-run investigation twice: first without projnavi using normal repo exploration, search, and file reads; then with projnavi by running \`projnavi guide "<task>"\` and inspecting only the recommended first-pass files. Measure wall time, command count, output bytes, output lines, approximate tokens, and qualitative relevance. Report a professional Markdown table, a compact shareable summary, whether projnavi pointed to the right files, and the caveat that approximate tokens are estimated from output bytes rather than model token accounting.
+
+If \`$ARGUMENTS\` is empty:
+
+Show the supported forms: \`/projnavi onboard\`, \`/projnavi benchmark\`, and \`/projnavi <task>\`. Do not run projnavi until the user provides an action or task.
+
+Otherwise:
+
+Run \`projnavi guide "$ARGUMENTS"\` and use the result as navigation advice only. Verify source files and tests before editing. Skip projnavi for trivial single-file edits where the user already named the exact file and location.
+${CLAUDE_SKILL_SECTION_END}
+`;
+
 export const EMPTY_GLOSSARY = {
   terms: []
 };

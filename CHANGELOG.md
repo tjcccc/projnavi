@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 - Claude Code project skill
+
+- Added `projnavi init --agent claude` to create a project-scoped Claude Code skill at `.claude/skills/projnavi/SKILL.md`.
+- Added a plain `projnavi init` hint that points users to the Codex and Claude agent setup flags.
+- Added Claude Code usage docs for `/projnavi onboard`, `/projnavi benchmark`, and `/projnavi <task>`.
+- Refreshed the guide benchmark default task now that Claude support is implemented.
+
 ## 0.1.1 - Global install fix
 
 - Fixed npm global binary execution when invoked through a symlinked package bin.

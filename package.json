@@ -1,6 +1,6 @@
 {
   "name": "projnavi",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Local navigation briefs for coding agents",
   "type": "module",
   "bin": {
@@ -17,7 +17,8 @@
     "cli",
     "onboarding",
     "navigation",
-    "codex"
+    "codex",
+    "claude-code"
   ],
   "repository": {
     "type": "git",
