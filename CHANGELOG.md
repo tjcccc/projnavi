@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 - Global install fix
+
+- Fixed npm global binary execution when invoked through a symlinked package bin.
+- Made built `dist/cli.js` executable during `pnpm build` so npm global installs can run the CLI directly.
+
 ## 0.1.0 - MVP
 
 - Added local deterministic `projnavi` CLI with `init`, `onboard`, `guide`, `notes`, and `verify`.
@@ -10,4 +15,3 @@
 - Added benchmark workflow and `pnpm benchmark:guide` for comparing dry-run investigation with and without projnavi.
 - Added Vitest coverage for parsing, glossary matching, guide output, stale detection, init overwrite behavior, agent instruction generation, and CLI smoke paths.
 - Added npm publish metadata.
-- Fixed npm global binary execution when invoked through a symlinked package bin.

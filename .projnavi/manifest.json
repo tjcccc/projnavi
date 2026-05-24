@@ -1,7 +1,7 @@
 {
   "version": 1,
   "projnaviVersion": "0.1.0",
-  "generatedAt": "2026-05-24T05:18:26.446Z",
+  "generatedAt": "2026-05-24T05:22:36.317Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
@@ -11,15 +11,15 @@
       "category": "docs"
     },
     "CHANGELOG.md": {
-      "hash": "8352366c5e525afcff894f7cf31975a7529681cef6982d96ebb3ebbcd7be43c9",
-      "size": 986,
-      "mtimeMs": 1779599850324.5598,
+      "hash": "c2773c4f7c4cb5c247e9bff0edfacc7d59e5bd8bcc1bd372382b1a46ceef370e",
+      "size": 1125,
+      "mtimeMs": 1779600130770.0793,
       "category": "docs"
     },
     "DEVLOG.md": {
-      "hash": "b369ebc30f3c5b0d98b01a1ae9b52d5c920b09f882d6bd2e5943f5d49f86af84",
-      "size": 1642,
-      "mtimeMs": 1779599850449.5596,
+      "hash": "56c270234a78432cd8b34e31d56f99fcd60d91072cdbd236fddbe97179dd3b37",
+      "size": 1711,
+      "mtimeMs": 1779600130898.079,
       "category": "docs"
     },
     "docs/benchmark-plan.md": {
@@ -41,9 +41,9 @@
       "category": "config"
     },
     "package.json": {
-      "hash": "f717a28b04bebcdc1019c114f3ae00aa882027ef67fac9615d9ee3d6b3c0294d",
+      "hash": "0aae7805c4e46ec9b74bc5a71f41e26d57f02f857f56382f8809dcd6aa5009ed",
       "size": 1292,
-      "mtimeMs": 1779599707316.805,
+      "mtimeMs": 1779600130639.0796,
       "category": "config"
     },
     "pnpm-lock.yaml": {

@@ -17,6 +17,7 @@
 - Added `TODO.md` for post-MVP polish items.
 - Added npm package metadata; actual npm publishing remains manual.
 - Fixed global npm binary execution by resolving symlinked bin paths before checking the CLI entrypoint, and made the built `dist/cli.js` executable.
+- Prepared v0.1.1 as the release version for the global-install fix.
 - Verified the current MVP with:
   - `pnpm typecheck`
   - `pnpm lint`
