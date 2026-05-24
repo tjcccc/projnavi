@@ -1,7 +1,7 @@
 {
   "version": 1,
   "projnaviVersion": "0.1.0",
-  "generatedAt": "2026-05-24T05:22:36.317Z",
+  "generatedAt": "2026-05-24T05:49:33.631Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
@@ -17,9 +17,9 @@
       "category": "docs"
     },
     "DEVLOG.md": {
-      "hash": "56c270234a78432cd8b34e31d56f99fcd60d91072cdbd236fddbe97179dd3b37",
-      "size": 1711,
-      "mtimeMs": 1779600130898.079,
+      "hash": "47c64e2c8e1c2a6cc96a920525643424f44927db14be39bc3617a78c79b5cfed",
+      "size": 1901,
+      "mtimeMs": 1779601756696.2532,
       "category": "docs"
     },
     "docs/benchmark-plan.md": {
@@ -245,9 +245,9 @@
       "category": "test"
     },
     "TODO.md": {
-      "hash": "41eb170ec801d877604a8751df554200eae80752bc66339217a898a536b2ab16",
-      "size": 371,
-      "mtimeMs": 1779598398787.4087,
+      "hash": "e35ce7a457f52e594cca3ec6f56f09d537a19ad3ff96277ffe0a69140ef618ab",
+      "size": 2747,
+      "mtimeMs": 1779601756559.7856,
       "category": "docs"
     },
     "tsconfig.json": {
