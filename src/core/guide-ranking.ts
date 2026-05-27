@@ -64,6 +64,7 @@ export function buildTaskBrief(input: {
   manifest: Manifest | null;
   verifyReport: VerifyReport;
   parserWarnings: string[];
+  maxItems?: number;
 }): TaskBrief {
   const tokens = tokenize(input.task);
   const rankedClaims = rankClaims(input.task, tokens, input.claims, input.verifyReport);
@@ -80,7 +81,7 @@ export function buildTaskBrief(input: {
     warnings.push("No high-precision projnavi matches found for this task.");
   }
 
-  const readFirst = buildReadFirst(rankedClaims, rankedTerms, rankedNotes);
+  const readFirst = buildReadFirst(rankedClaims, rankedTerms, rankedNotes, input.maxItems ?? 8);
   const suggestedTests = buildSuggestedTests(input.task, tokens, rankedClaims, input.manifest);
   const relevantConcepts = buildRelevantConcepts(rankedClaims, rankedTerms);
   const evidence = buildEvidence(rankedClaims);
@@ -257,11 +258,16 @@ function isStrongEnough(score: number, tokens: string[], reasons: string[]): boo
 function buildReadFirst(
   rankedClaims: RankedClaim[],
   rankedTerms: RankedGlossaryTerm[],
-  rankedNotes: RankedNote[]
+  rankedNotes: RankedNote[],
+  maxItems: number
 ): ReadFirstItem[] {
   const items: ReadFirstItem[] = [];
+  const topClaimScore = rankedClaims[0]?.score ?? 0;
+  const taskSpecificNotes = rankedNotes.filter((ranked) => isTaskSpecificNote(ranked, topClaimScore));
+  const leadingNotes = taskSpecificNotes.filter((ranked) => ranked.score > topClaimScore * 1.25);
+  const supportingNotes = taskSpecificNotes.filter((ranked) => !leadingNotes.includes(ranked));
 
-  for (const ranked of rankedNotes.slice(0, 4)) {
+  for (const ranked of leadingNotes.slice(0, 2)) {
     items.push({ path: ranked.note.path, reason: ranked.reasons.join("; "), kind: "note" });
   }
 
@@ -277,6 +283,16 @@ function buildReadFirst(
     }
   }
 
+  if (items.some((item) => item.kind === "file")) {
+    for (const ranked of supportingNotes.slice(0, 2)) {
+      items.push({ path: ranked.note.path, reason: ranked.reasons.join("; "), kind: "note" });
+    }
+  } else {
+    for (const ranked of rankedNotes.slice(0, 4)) {
+      items.push({ path: ranked.note.path, reason: ranked.reasons.join("; "), kind: "note" });
+    }
+  }
+
   const seen = new Set<string>();
   return items
     .filter((item) => {
@@ -287,7 +303,18 @@ function buildReadFirst(
       seen.add(item.path);
       return true;
     })
-    .slice(0, 8);
+    .slice(0, maxItems);
+}
+
+function isTaskSpecificNote(ranked: RankedNote, topClaimScore: number): boolean {
+  const hasExactTitleMatch = ranked.reasons.some((reason) => reason === "exact phrase in note title");
+  const hasExactBodyMatch = ranked.reasons.some((reason) => reason === "exact phrase in note body");
+
+  if (hasExactTitleMatch) {
+    return topClaimScore === 0 || ranked.score >= topClaimScore * 0.75;
+  }
+
+  return hasExactBodyMatch && (topClaimScore === 0 || ranked.score > topClaimScore);
 }
 
 function buildSuggestedTests(

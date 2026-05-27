@@ -1,6 +1,6 @@
 import { promises as fs } from "node:fs";
 import { formatWarnings } from "../core/claims.js";
-import { createFileEntry, writeManifest } from "../core/manifest.js";
+import { createFileEntry, readManifest, stabilizeManifest, writeManifestIfChanged } from "../core/manifest.js";
 import { projnaviPath } from "../core/paths.js";
 import { scanForManifest } from "../core/onboard-scan.js";
 import { renderProjectInventory, PROJECT_TEMPLATE } from "../core/templates.js";
@@ -14,7 +14,6 @@ export async function runOnboard(root: string): Promise<CommandResult> {
   const result = await scanForManifest(root);
 
   const lines = [
-    `updated .projnavi/manifest.json`,
     `indexed ${Object.keys(result.manifest.files).length} repo files`,
     `indexed ${Object.keys(result.manifest.notes).length} notes`,
     `tracked ${Object.keys(result.manifest.evidence).length} evidence paths`
@@ -36,7 +35,10 @@ export async function runOnboard(root: string): Promise<CommandResult> {
     }
   }
 
-  await writeManifest(root, result.manifest);
+  const existingManifest = await readManifest(root);
+  const manifest = stabilizeManifest(existingManifest, result.manifest);
+  const manifestChanged = await writeManifestIfChanged(root, manifest);
+  lines.unshift(`${manifestChanged ? "updated" : "left"} .projnavi/manifest.json${manifestChanged ? "" : " unchanged"}`);
 
   return ok(lines.join("\n"), result.warnings.length > 0 ? formatWarningsAsText(result.warnings) : undefined);
 }

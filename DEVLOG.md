@@ -1,5 +1,14 @@
 # DEVLOG
 
+## 2026-05-27
+
+- Prepared v0.4.0 with precision-focused guide ranking, `projnavi guide --max-items <n>`, `projnavi --version`, and `projnavi integrate`.
+- Added Codex global skill installation plus minimal repo `AGENTS.md` policy guidance so normal broad tasks use `projnavi guide "<task>"` as a terminal command.
+- Added Cursor, OpenCode, generic `--agent-doc <path>`, and generic `--skills-dir <skills-folder>` integration support.
+- Kept generated agent docs policy-only and kept full `onboard` / `benchmark` workflows inside skill files.
+- Stabilized manifest writes by removing generated `mtimeMs` churn and preserving `generatedAt` when effective manifest content is unchanged.
+- Documented the product boundary: projnavi is strongest for high-entropy tasks and should not replace `rg` for obvious narrow backend/API work.
+
 ## 2026-05-24
 
 - Created the TypeScript/Node CLI project structure with pnpm, ESLint, Vitest, and strict TypeScript.

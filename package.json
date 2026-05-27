@@ -1,6 +1,6 @@
 {
   "name": "projnavi",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Local navigation briefs for coding agents",
   "type": "module",
   "bin": {

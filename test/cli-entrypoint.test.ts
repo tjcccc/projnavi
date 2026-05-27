@@ -1,4 +1,4 @@
-import { promises as fs } from "node:fs";
+import { promises as fs, realpathSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { realpathOrResolved } from "../src/cli.js";
@@ -13,6 +13,6 @@ describe("CLI entrypoint helpers", () => {
     await fs.writeFile(target, "#!/usr/bin/env node\n", "utf8");
     await fs.symlink(target, link);
 
-    expect(realpathOrResolved(link)).toBe(target);
+    expect(realpathOrResolved(link)).toBe(realpathSync(target));
   });
 });

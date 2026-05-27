@@ -6,7 +6,7 @@ import { isPlainObject } from "./schemas.js";
 import { normalizeRelPath, projnaviPath, resolveInRoot } from "./paths.js";
 import { createInitialManifest } from "./templates.js";
 
-export const PROJNAVI_VERSION = "0.2.0";
+export const PROJNAVI_VERSION = "0.4.0";
 
 export async function hashFile(filePath: string): Promise<string> {
   const content = await fs.readFile(filePath);
@@ -23,7 +23,6 @@ export async function createFileEntry(
   return {
     hash: await hashFile(absolutePath),
     size: stat.size,
-    mtimeMs: stat.mtimeMs,
     category
   };
 }
@@ -46,7 +45,38 @@ export async function readManifest(root: string): Promise<Manifest | null> {
 
 export async function writeManifest(root: string, manifest: Manifest): Promise<void> {
   await fs.mkdir(projnaviPath(root), { recursive: true });
-  await fs.writeFile(projnaviPath(root, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  await fs.writeFile(projnaviPath(root, "manifest.json"), formatManifest(manifest), "utf8");
+}
+
+export async function writeManifestIfChanged(root: string, manifest: Manifest): Promise<boolean> {
+  const manifestPath = projnaviPath(root, "manifest.json");
+  const nextContent = formatManifest(manifest);
+
+  try {
+    if ((await fs.readFile(manifestPath, "utf8")) === nextContent) {
+      return false;
+    }
+  } catch (error) {
+    if (!isNodeError(error) || error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+
+  await fs.mkdir(projnaviPath(root), { recursive: true });
+  await fs.writeFile(manifestPath, nextContent, "utf8");
+  return true;
+}
+
+export function stabilizeManifest(existing: Manifest | null, next: Manifest): Manifest {
+  if (!existing || !sameEffectiveManifest(existing, next)) {
+    return next;
+  }
+
+  return { ...next, generatedAt: existing.generatedAt };
+}
+
+export function formatManifest(manifest: Manifest): string {
+  return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
 export async function ensureManifest(root: string): Promise<Manifest> {
@@ -116,18 +146,22 @@ function coerceFileMap(value: unknown): Record<string, ManifestFileEntry> {
     if (
       typeof rawEntry.hash !== "string" ||
       typeof rawEntry.size !== "number" ||
-      typeof rawEntry.mtimeMs !== "number" ||
       typeof rawEntry.category !== "string"
     ) {
       continue;
     }
 
-    result[normalizeRelPath(rawKey)] = {
+    const entry: ManifestFileEntry = {
       hash: rawEntry.hash,
       size: rawEntry.size,
-      mtimeMs: rawEntry.mtimeMs,
       category: rawEntry.category as ManifestFileEntry["category"]
     };
+
+    if (typeof rawEntry.mtimeMs === "number") {
+      entry.mtimeMs = rawEntry.mtimeMs;
+    }
+
+    result[normalizeRelPath(rawKey)] = entry;
   }
 
   return result;
@@ -147,7 +181,6 @@ function coerceEvidenceMap(value: unknown): Manifest["evidence"] {
     if (
       typeof rawEntry.hash !== "string" ||
       typeof rawEntry.size !== "number" ||
-      typeof rawEntry.mtimeMs !== "number" ||
       typeof rawEntry.category !== "string" ||
       !Array.isArray(rawEntry.claimIds)
     ) {
@@ -155,16 +188,80 @@ function coerceEvidenceMap(value: unknown): Manifest["evidence"] {
     }
 
     const claimIds = rawEntry.claimIds.filter((claimId): claimId is string => typeof claimId === "string");
-    result[normalizeRelPath(rawKey)] = {
+    const entry: Manifest["evidence"][string] = {
       hash: rawEntry.hash,
       size: rawEntry.size,
-      mtimeMs: rawEntry.mtimeMs,
       category: rawEntry.category as ManifestFileEntry["category"],
       claimIds
+    };
+
+    if (typeof rawEntry.mtimeMs === "number") {
+      entry.mtimeMs = rawEntry.mtimeMs;
+    }
+
+    result[normalizeRelPath(rawKey)] = entry;
+  }
+
+  return result;
+}
+
+function sameEffectiveManifest(left: Manifest, right: Manifest): boolean {
+  return JSON.stringify(toComparableManifest(left)) === JSON.stringify(toComparableManifest(right));
+}
+
+function toComparableManifest(manifest: Manifest): unknown {
+  return {
+    version: manifest.version,
+    projnaviVersion: manifest.projnaviVersion,
+    root: manifest.root,
+    files: comparableFileMap(manifest.files),
+    notes: comparableFileMap(manifest.notes),
+    evidence: comparableEvidenceMap(manifest.evidence),
+    inventory: comparableInventory(manifest.inventory)
+  };
+}
+
+function comparableFileMap(entries: Record<string, ManifestFileEntry>): Record<string, Omit<ManifestFileEntry, "mtimeMs">> {
+  const result: Record<string, Omit<ManifestFileEntry, "mtimeMs">> = {};
+
+  for (const [key, entry] of Object.entries(entries).sort(([a], [b]) => a.localeCompare(b))) {
+    result[key] = {
+      hash: entry.hash,
+      size: entry.size,
+      category: entry.category
     };
   }
 
   return result;
+}
+
+function comparableEvidenceMap(manifestEvidence: Manifest["evidence"]): Record<
+  string,
+  Omit<ManifestFileEntry, "mtimeMs"> & { claimIds: string[] }
+> {
+  const result: Record<string, Omit<ManifestFileEntry, "mtimeMs"> & { claimIds: string[] }> = {};
+
+  for (const [key, entry] of Object.entries(manifestEvidence).sort(([a], [b]) => a.localeCompare(b))) {
+    result[key] = {
+      hash: entry.hash,
+      size: entry.size,
+      category: entry.category,
+      claimIds: [...entry.claimIds].sort()
+    };
+  }
+
+  return result;
+}
+
+function comparableInventory(inventory: Manifest["inventory"]): Manifest["inventory"] {
+  return {
+    summary: inventory.summary,
+    ...(inventory.packageName ? { packageName: inventory.packageName } : {}),
+    ...(inventory.packageScripts ? { packageScripts: [...inventory.packageScripts].sort() } : {}),
+    topLevelDirectories: [...inventory.topLevelDirectories].sort(),
+    fileCounts: Object.fromEntries(Object.entries(inventory.fileCounts).sort(([a], [b]) => a.localeCompare(b))),
+    tests: [...inventory.tests].sort()
+  };
 }
 
 function coerceCounts(value: unknown): Record<string, number> {

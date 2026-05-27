@@ -10,6 +10,7 @@ import { fail, ok } from "./types.js";
 export interface GuideOptions {
   format: "text" | "json";
   strict: boolean;
+  maxItems?: number;
 }
 
 export async function runGuide(root: string, task: string, options: GuideOptions): Promise<CommandResult> {
@@ -37,7 +38,8 @@ export async function runGuide(root: string, task: string, options: GuideOptions
     notes,
     manifest,
     verifyReport,
-    parserWarnings
+    parserWarnings,
+    ...(options.maxItems !== undefined ? { maxItems: options.maxItems } : {})
   });
 
   if (options.format === "json") {

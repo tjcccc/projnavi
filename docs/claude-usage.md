@@ -28,3 +28,5 @@ Invoke it with:
 `/projnavi benchmark` performs a read-only comparison of first-pass investigation with and without projnavi.
 
 `/projnavi <task>` runs `projnavi guide "<task>"` and uses the result as navigation advice only. Verify source files before editing.
+
+`projnavi guide` is strongest for high-entropy work: cross-layer changes, frontend/display behavior, project-specific concepts, architecture-sensitive edits, provider integrations, scattered ownership, or unclear naming. It is not meant to replace `rg` for obvious single-slice backend/API tasks. For simple tasks, normal search may be just as efficient; projnavi may still improve relevance, but may not reduce output size. Use `projnavi guide "<task>" --max-items <n>` to cap only the `Read first` list.

@@ -6,6 +6,20 @@ import { runVerify } from "../src/commands/verify.js";
 import { makeTempRepo } from "./helpers.js";
 
 describe("verify command", () => {
+  it("does not rewrite manifest when tracked content is unchanged", async () => {
+    const root = await makeTempRepo();
+
+    const first = await runOnboard(root);
+    expect(first.stdout).toContain("updated .projnavi/manifest.json");
+    const manifestPath = path.join(root, ".projnavi", "manifest.json");
+    const firstManifest = await fs.readFile(manifestPath, "utf8");
+    expect(firstManifest).not.toContain("mtimeMs");
+
+    const second = await runOnboard(root);
+    expect(second.stdout).toContain("left .projnavi/manifest.json unchanged");
+    await expect(fs.readFile(manifestPath, "utf8")).resolves.toBe(firstManifest);
+  });
+
   it("detects changed evidence files and stale claims", async () => {
     const root = await makeTempRepo();
     await runOnboard(root);

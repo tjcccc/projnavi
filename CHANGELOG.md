@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 - Agent integration and guide precision
+
+- Added `projnavi --version` / `-v`.
+- Added `projnavi guide --max-items <n>` and tightened guide ranking so evidence-backed source and test paths win over broad notes in first-pass output.
+- Added `projnavi integrate` for adding agent integrations after project init.
+- Added Codex global skill installation plus minimal repo `AGENTS.md` policy guidance.
+- Added Cursor, OpenCode, generic `--agent-doc <path>`, and generic `--skills-dir <skills-folder>` integration support.
+- Made generated agent docs policy-only while keeping full onboarding and benchmark workflows in skill files.
+- Stabilized `.projnavi/manifest.json` so repeated onboarding does not churn when tracked content is unchanged.
+- Documented the projnavi product boundary for high-entropy tasks versus obvious narrow tasks.
+
 ## 0.2.0 - Claude Code project skill
 
 - Added `projnavi init --agent claude` to create a project-scoped Claude Code skill at `.claude/skills/projnavi/SKILL.md`.

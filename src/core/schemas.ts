@@ -49,7 +49,7 @@ export interface Glossary {
 export interface ManifestFileEntry {
   hash: string;
   size: number;
-  mtimeMs: number;
+  mtimeMs?: number;
   category: "config" | "docs" | "source" | "test" | "note" | "evidence" | "other";
 }
 

@@ -10,18 +10,26 @@ import {
   CODEX_AGENTS_SECTION_END,
   CODEX_AGENTS_SECTION_START,
   createInitialManifest,
+  CURSOR_PROJECT_RULE,
   EMPTY_GLOSSARY,
   FLOW_EXAMPLE_TEMPLATE,
+  GENERIC_AGENT_DOC_SECTION,
+  GENERIC_AGENT_DOC_SECTION_END,
+  GENERIC_AGENT_DOC_SECTION_START,
+  GENERIC_PROJECT_SKILL,
   MODULE_EXAMPLE_TEMPLATE,
   PROJECT_TEMPLATE
 } from "../core/templates.js";
 import type { CommandResult } from "./types.js";
 import { ok } from "./types.js";
 
-export type AgentKind = "codex" | "claude";
+export type AgentKind = "codex" | "claude" | "cursor" | "opencode";
 
 export interface InitOptions {
   agent?: AgentKind;
+  repoDoc?: boolean;
+  agentDocs?: string[];
+  skillsDirs?: string[];
   force: boolean;
 }
 
@@ -66,15 +74,59 @@ export async function runInit(root: string, options: InitOptions): Promise<Comma
     lines.push(`${manifestExisted ? "overwrote" : "created"} .projnavi/manifest.json`);
   }
 
-  if (options.agent === "codex") {
-    lines.push(await ensureCodexAgentsInstructions(root));
-  } else if (options.agent === "claude") {
-    lines.push(await ensureClaudeProjectSkill(root, options.force));
+  if (hasIntegrationTargets(options)) {
+    lines.push(await runIntegrateInternal(root, options));
   } else {
-    lines.push("hint: to add agent instructions, run `projnavi init --agent codex` or `projnavi init --agent claude`");
+    lines.push(
+      "hint: to add agent integration, run `projnavi integrate --agent codex`, `projnavi integrate --agent claude`, `projnavi integrate --agent cursor`, `projnavi integrate --agent opencode`, `projnavi integrate --agent-doc <path>`, or `projnavi integrate --skills-dir <skills-folder>`"
+    );
   }
 
   return ok(lines.join("\n"));
+}
+
+export async function runIntegrate(root: string, options: InitOptions): Promise<CommandResult> {
+  if (!hasIntegrationTargets(options)) {
+    return ok(
+      "hint: choose an integration target with `--agent codex|claude|cursor|opencode`, `--agent-doc <path>`, or `--skills-dir <skills-folder>`"
+    );
+  }
+
+  return ok(await runIntegrateInternal(root, options));
+}
+
+async function runIntegrateInternal(root: string, options: InitOptions): Promise<string> {
+  const lines: string[] = [];
+
+  if (options.agent === "codex") {
+    if (options.repoDoc) {
+      lines.push(await ensureCodexAgentsInstructions(root));
+    } else {
+      lines.push(await ensureCodexGlobalSkill(root, options.force));
+      lines.push(await ensureCodexAgentsInstructions(root));
+    }
+  } else if (options.agent === "claude") {
+    lines.push(await ensureClaudeProjectSkill(root, options.force));
+  } else if (options.agent === "cursor") {
+    lines.push(await ensureCursorProjectRule(root, options.force));
+  } else if (options.agent === "opencode") {
+    lines.push(await ensureGenericAgentDoc(root, "AGENTS.md", "OpenCode"));
+    lines.push(await ensureGenericProjectSkill(root, ".opencode/skills", "OpenCode", options.force));
+  }
+
+  for (const docPath of options.agentDocs ?? []) {
+    lines.push(await ensureGenericAgentDoc(root, docPath, "custom agent"));
+  }
+
+  for (const skillsFolder of options.skillsDirs ?? []) {
+    lines.push(await ensureGenericProjectSkill(root, skillsFolder, "custom agent", options.force));
+  }
+
+  return lines.join("\n");
+}
+
+function hasIntegrationTargets(options: InitOptions): boolean {
+  return Boolean(options.agent || options.agentDocs?.length || options.skillsDirs?.length);
 }
 
 async function ensureCodexAgentsInstructions(root: string): Promise<string> {
@@ -93,6 +145,10 @@ async function ensureCodexAgentsInstructions(root: string): Promise<string> {
   }
 
   return "updated AGENTS.md with projnavi Codex instructions";
+}
+
+async function ensureCodexGlobalSkill(root: string, force: boolean): Promise<string> {
+  return ensureGenericProjectSkill(root, getCodexSkillsDir(), "Codex", force);
 }
 
 async function ensureClaudeProjectSkill(root: string, force: boolean): Promise<string> {
@@ -117,8 +173,82 @@ async function ensureClaudeProjectSkill(root: string, force: boolean): Promise<s
   return "updated .claude/skills/projnavi/SKILL.md with projnavi Claude skill";
 }
 
+async function ensureCursorProjectRule(root: string, force: boolean): Promise<string> {
+  const rulePath = path.join(root, ".cursor", "rules", "projnavi.mdc");
+  const existing = await readOptionalFile(rulePath);
+
+  if (existing !== null && existing === CURSOR_PROJECT_RULE) {
+    return "left .cursor/rules/projnavi.mdc unchanged";
+  }
+
+  if (existing !== null && !force) {
+    return "skipped .cursor/rules/projnavi.mdc";
+  }
+
+  await fs.mkdir(path.dirname(rulePath), { recursive: true });
+  await fs.writeFile(rulePath, CURSOR_PROJECT_RULE, "utf8");
+
+  if (existing === null) {
+    return "created .cursor/rules/projnavi.mdc with projnavi Cursor rule";
+  }
+
+  return "updated .cursor/rules/projnavi.mdc with projnavi Cursor rule";
+}
+
+async function ensureGenericAgentDoc(root: string, docPath: string, label: string): Promise<string> {
+  const absolutePath = resolveUserPath(root, docPath);
+  const displayPath = displayPathFor(root, absolutePath);
+  const existing = await readOptionalFile(absolutePath);
+  const nextContent = applyGenericManagedSection(existing);
+
+  if (existing === nextContent || (existing !== null && hasCodexManagedSection(existing))) {
+    return `left ${displayPath} unchanged`;
+  }
+
+  await fs.mkdir(path.dirname(absolutePath), { recursive: true });
+  await fs.writeFile(absolutePath, nextContent, "utf8");
+
+  if (existing === null) {
+    return `created ${displayPath} with projnavi ${label} instructions`;
+  }
+
+  return `updated ${displayPath} with projnavi ${label} instructions`;
+}
+
+async function ensureGenericProjectSkill(
+  root: string,
+  skillsFolder: string,
+  label: string,
+  force: boolean
+): Promise<string> {
+  const skillPath = path.join(resolveUserPath(root, skillsFolder), "projnavi", "SKILL.md");
+  const displayPath = displayPathFor(root, skillPath);
+  const existing = await readOptionalFile(skillPath);
+
+  if (existing !== null && existing === GENERIC_PROJECT_SKILL) {
+    return `left ${displayPath} unchanged`;
+  }
+
+  if (existing !== null && !force) {
+    return `skipped ${displayPath}`;
+  }
+
+  await fs.mkdir(path.dirname(skillPath), { recursive: true });
+  await fs.writeFile(skillPath, GENERIC_PROJECT_SKILL, "utf8");
+
+  if (existing === null) {
+    return `created ${displayPath} with projnavi ${label} skill`;
+  }
+
+  return `updated ${displayPath} with projnavi ${label} skill`;
+}
+
 function isManagedClaudeSkill(existing: string): boolean {
   return existing.includes(CLAUDE_SKILL_SECTION_START) && existing.includes(CLAUDE_SKILL_SECTION_END);
+}
+
+function hasCodexManagedSection(existing: string): boolean {
+  return existing.includes(CODEX_AGENTS_SECTION_START) && existing.includes(CODEX_AGENTS_SECTION_END);
 }
 
 function applyManagedSection(existing: string | null): string {
@@ -143,8 +273,63 @@ ${CODEX_AGENTS_SECTION}
   return joinSections(existing.trimEnd(), CODEX_AGENTS_SECTION, "");
 }
 
+function applyGenericManagedSection(existing: string | null): string {
+  if (existing === null) {
+    return `# Agent Instructions
+
+${GENERIC_AGENT_DOC_SECTION}
+`;
+  }
+
+  const start = existing.indexOf(GENERIC_AGENT_DOC_SECTION_START);
+  const end = existing.indexOf(GENERIC_AGENT_DOC_SECTION_END);
+
+  if (start !== -1 && end !== -1 && end > start) {
+    const before = existing.slice(0, start).trimEnd();
+    const after = existing.slice(end + GENERIC_AGENT_DOC_SECTION_END.length).trimStart();
+    return joinSections(before, GENERIC_AGENT_DOC_SECTION, after);
+  }
+
+  return joinSections(existing.trimEnd(), GENERIC_AGENT_DOC_SECTION, "");
+}
+
 function joinSections(before: string, managed: string, after: string): string {
   return [before, managed, after].filter((section) => section.length > 0).join("\n\n").concat("\n");
+}
+
+function resolveUserPath(root: string, userPath: string): string {
+  if (userPath === "~") {
+    return process.env.HOME ?? userPath;
+  }
+
+  if (userPath.startsWith("~/")) {
+    const home = process.env.HOME;
+    return home ? path.join(home, userPath.slice(2)) : path.resolve(root, userPath);
+  }
+
+  return path.isAbsolute(userPath) ? userPath : path.join(root, userPath);
+}
+
+function getCodexSkillsDir(): string {
+  const codexHome = process.env.CODEX_HOME;
+  if (codexHome && codexHome.trim().length > 0) {
+    return path.join(codexHome, "skills");
+  }
+
+  return "~/.codex/skills";
+}
+
+function displayPathFor(root: string, absolutePath: string): string {
+  const relativePath = path.relative(root, absolutePath);
+  if (!relativePath.startsWith("..") && !path.isAbsolute(relativePath)) {
+    return toPosixPath(relativePath);
+  }
+
+  return absolutePath;
+}
+
+function toPosixPath(value: string): string {
+  return value.split(path.sep).join(path.posix.sep);
 }
 
 async function readOptionalFile(filePath: string): Promise<string | null> {

@@ -7,8 +7,8 @@ Post-MVP roadmap. Keep the work focused on the core loop:
 
 - [ ] Add layered guide output: `Read first`, `Likely next`, `Tests / validation`, and `Reference notes`.
 - [ ] Add `projnavi guide --compact` for token-bounded agent output.
-- [ ] Add `projnavi guide --max-items <n>` to control first-pass output size.
-- [ ] Prefer narrow evidence-backed claims over broad project or module notes.
+- [x] Add `projnavi guide --max-items <n>` to control first-pass output size.
+- [x] Prefer narrow evidence-backed claims over broad project or module notes.
 - [ ] Penalize broad notes that match many unrelated tasks.
 - [ ] Mark guide items as `fresh`, `stale`, or `unknown`.
 - [ ] Penalize stale claims in guide ranking while still surfacing stale warnings.
@@ -42,9 +42,12 @@ Post-MVP roadmap. Keep the work focused on the core loop:
 
 - [x] Add `projnavi init --agent codex`.
 - [x] Add `projnavi init --agent claude` with a project-scoped `.claude/skills/projnavi/SKILL.md`.
+- [x] Add Cursor, OpenCode, generic agent doc, and generic skills directory integrations.
 - [x] Preserve existing agent files and update only managed sections or managed files.
 - [x] Add tests for idempotence and preservation of user-edited agent content.
 - [x] Document Codex `AGENTS.md` and Claude Code project skill usage.
+- [ ] Decide whether `projnavi update` should refresh project-local integration targets and user-local global skills.
+- [ ] If automatic skill refresh is needed, track global installs in user-local config and project integrations in repo-local config, not in `manifest.json`.
 
 ## Later
 
