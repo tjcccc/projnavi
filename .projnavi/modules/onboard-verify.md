@@ -4,6 +4,8 @@ Onboarding and freshness checks are coupled through `manifest.json`.
 
 `src/core/onboard-scan.ts` scans the repo, respects `.gitignore` as much as practical, ignores common noise directories, hashes relevant files and notes, and records evidence hashes.
 
+`src/core/manifest.ts` keeps manifest writes stable. Generated file entries include hash, size, and category, but not `mtimeMs`. Legacy manifests with `mtimeMs` are still accepted. When effective manifest content is unchanged, `generatedAt` is preserved and `writeManifestIfChanged` avoids rewriting the file.
+
 `src/core/verify.ts` recomputes hashes for manifest, claim, evidence, and glossary paths. Changed or missing evidence marks related claims stale.
 
 Relevant commands:

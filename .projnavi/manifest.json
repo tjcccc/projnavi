@@ -1,12 +1,12 @@
 {
   "version": 1,
   "projnaviVersion": "0.4.0",
-  "generatedAt": "2026-05-27T08:13:44.604Z",
+  "generatedAt": "2026-05-27T08:52:58.451Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
-      "hash": "d6fee63fe8380c0ca7616df82509857b240c00757e48d4b5645b2b5e05c53a9b",
-      "size": 2042,
+      "hash": "503848da72059968df10cbf3425282deaa7c3678d23b1f1510bf199746662fbb",
+      "size": 2043,
       "category": "docs"
     },
     "CHANGELOG.md": {
@@ -220,8 +220,8 @@
       "category": "test"
     },
     "TODO.md": {
-      "hash": "343c3d16879ffbe74b9bcc93f068c1f04948200938c4450b688577cbee7a733b",
-      "size": 3130,
+      "hash": "e3fbecdccda4cfec5104c2f55270cf20bb5c052f308cb0c30fba009a51f54959",
+      "size": 4770,
       "category": "docs"
     },
     "tsconfig.json": {
@@ -237,18 +237,23 @@
   },
   "notes": {
     ".projnavi/project.md": {
-      "hash": "fcfbc0f2209c2aab33b187a0502a2e1b810adc62966c82499ef0b0a8584f9403",
-      "size": 1299,
+      "hash": "cbf088c9e8be4122a3533fec4487e387e411fee204f543c948d80b620009faab",
+      "size": 3000,
+      "category": "note"
+    },
+    ".projnavi/modules/agent-integration.md": {
+      "hash": "901f5502bf678d5d135932b22b17424022497ab4e8a105ead3b4e9cdf1562b49",
+      "size": 1523,
       "category": "note"
     },
     ".projnavi/modules/cli.md": {
-      "hash": "306fd3c9085259f0f79dd09679f7941794861b5091b6beee45bb2203d4040ec1",
-      "size": 458,
+      "hash": "8f20fab2f4d6ba76286475e419b83da517323fa56df58c1e5692340156a627bb",
+      "size": 1148,
       "category": "note"
     },
     ".projnavi/modules/data-model.md": {
-      "hash": "f84a2cc413666dc9feadfd918c8f71e45303b659d670e060449abb58310ba5be",
-      "size": 600,
+      "hash": "555290dbc89afc6509a1ce5ee33df379852f08a57ee073aa15bcd93a96ed6a4e",
+      "size": 815,
       "category": "note"
     },
     ".projnavi/modules/example.md": {
@@ -257,18 +262,18 @@
       "category": "note"
     },
     ".projnavi/modules/guide-ranking.md": {
-      "hash": "96b7d460d21233e67d5ab11c5ccbaa0753954dc898decb97d586d8cfe7c2e2ac",
-      "size": 658,
+      "hash": "ff6c759a01d5e4e138a2000fee1a9106cfba3c85afe703bd9002ee62562194d2",
+      "size": 1507,
       "category": "note"
     },
     ".projnavi/modules/onboard-verify.md": {
-      "hash": "d9a76468bb3770dc7b702ec0f44dbdd0e46621ca5dfdbefd09d71a2d83ee2676",
-      "size": 568,
+      "hash": "8217eb99ded257f4733ebc60be4ade338f632ba2b711db2e4a0aba38b05b2fb0",
+      "size": 879,
       "category": "note"
     },
     ".projnavi/flows/benchmark-guide.md": {
-      "hash": "194ba75d6da5ea8d0bd82e8643b5fabec25fa358b00ae34d6e322c82af4945b6",
-      "size": 792,
+      "hash": "244246be75bb5d6534d8cdd7599f13cfa2d2ad0dc798e34ae533048bd7725ae8",
+      "size": 1631,
       "category": "note"
     },
     ".projnavi/flows/common-change.md": {
@@ -284,11 +289,11 @@
   },
   "evidence": {
     "AGENTS.md": {
-      "hash": "d6fee63fe8380c0ca7616df82509857b240c00757e48d4b5645b2b5e05c53a9b",
-      "size": 2042,
+      "hash": "503848da72059968df10cbf3425282deaa7c3678d23b1f1510bf199746662fbb",
+      "size": 2043,
       "category": "docs",
       "claimIds": [
-        "claim-init-codex-agent-001"
+        "claim-agent-codex-integration-001"
       ]
     },
     "docs/benchmark-plan.md": {
@@ -304,7 +309,23 @@
       "size": 1298,
       "category": "docs",
       "claimIds": [
-        "claim-init-claude-agent-001"
+        "claim-agent-claude-integration-001"
+      ]
+    },
+    "docs/cursor-usage.md": {
+      "hash": "30ee9c362db4192856776813cb6d12efc90b55074c8b6678453277b94d1dc980",
+      "size": 572,
+      "category": "docs",
+      "claimIds": [
+        "claim-agent-generic-integration-001"
+      ]
+    },
+    "docs/opencode-usage.md": {
+      "hash": "dcbbceee2785abc2b2ac8fbe16a71f9cb5999b1219950fa2314fbb593560a04e",
+      "size": 562,
+      "category": "docs",
+      "claimIds": [
+        "claim-agent-generic-integration-001"
       ]
     },
     "scripts/compare-guide.mjs": {
@@ -337,9 +358,10 @@
       "size": 12018,
       "category": "source",
       "claimIds": [
+        "claim-agent-claude-integration-001",
+        "claim-agent-codex-integration-001",
+        "claim-agent-generic-integration-001",
         "claim-cli-dispatch-001",
-        "claim-init-claude-agent-001",
-        "claim-init-codex-agent-001",
         "claim-init-safe-writes-001"
       ]
     },
@@ -357,6 +379,7 @@
       "category": "source",
       "claimIds": [
         "claim-cli-dispatch-001",
+        "claim-manifest-stable-001",
         "claim-onboard-manifest-001"
       ]
     },
@@ -398,6 +421,7 @@
       "size": 8961,
       "category": "source",
       "claimIds": [
+        "claim-manifest-stable-001",
         "claim-onboard-manifest-001"
       ]
     },
@@ -422,8 +446,9 @@
       "size": 11091,
       "category": "source",
       "claimIds": [
-        "claim-init-claude-agent-001",
-        "claim-init-codex-agent-001",
+        "claim-agent-claude-integration-001",
+        "claim-agent-codex-integration-001",
+        "claim-agent-generic-integration-001",
         "claim-init-safe-writes-001"
       ]
     },
@@ -471,8 +496,9 @@
       "size": 12636,
       "category": "test",
       "claimIds": [
-        "claim-init-claude-agent-001",
-        "claim-init-codex-agent-001",
+        "claim-agent-claude-integration-001",
+        "claim-agent-codex-integration-001",
+        "claim-agent-generic-integration-001",
         "claim-init-safe-writes-001"
       ]
     },
@@ -481,7 +507,16 @@
       "size": 1638,
       "category": "test",
       "claimIds": [
+        "claim-manifest-stable-001",
         "claim-verify-stale-001"
+      ]
+    },
+    "TODO.md": {
+      "hash": "e3fbecdccda4cfec5104c2f55270cf20bb5c052f308cb0c30fba009a51f54959",
+      "size": 4770,
+      "category": "docs",
+      "claimIds": [
+        "claim-guide-benchmark-001"
       ]
     }
   },

@@ -54,3 +54,4 @@ pnpm test
 pnpm build
 node dist/cli.js verify
 ```
+

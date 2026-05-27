@@ -6,7 +6,7 @@ Claims are JSONL objects. Invalid lines warn by default and fail only under stri
 
 Glossary terms support aliases, mappings, topics, paths, and notes.
 
-Manifest data records projnavi version, generation time, root marker, file hashes, note hashes, evidence hashes, and inventory data.
+Manifest data records projnavi version, generation time, root marker, file hashes, note hashes, evidence hashes, and inventory data. Generated manifest entries should be stable across unchanged onboard runs: hash, size, and category are enough for generated entries. `mtimeMs` remains optional only for backward compatibility with older manifests.
 
 Primary parser tests:
 

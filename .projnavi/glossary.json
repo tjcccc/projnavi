@@ -2,11 +2,19 @@
   "terms": [
     {
       "term": "guide ranking",
-      "aliases": ["task brief ranking", "guide scoring", "read first ranking", "high precision matching"],
-      "mapsTo": ["buildTaskBrief", "rankClaims", "rankGlossaryTerms"],
+      "aliases": ["task brief ranking", "guide scoring", "read first ranking", "high precision matching", "broad notes", "read first precision"],
+      "mapsTo": ["buildTaskBrief", "rankClaims", "rankGlossaryTerms", "buildReadFirst"],
       "topics": ["guide", "ranking", "task brief"],
       "paths": ["src/core/guide-ranking.ts", "src/commands/guide.ts"],
       "notes": "Use this when changing how projnavi guide chooses read-first files, concepts, tests, evidence, warnings, or confidence."
+    },
+    {
+      "term": "guide max items",
+      "aliases": ["--max-items", "max-items", "read first cap", "cap read first", "limit guide items"],
+      "mapsTo": ["parseMaxItems", "GuideOptions.maxItems", "buildReadFirst"],
+      "topics": ["guide", "cli", "read first", "output size"],
+      "paths": ["src/cli.ts", "src/commands/guide.ts", "src/core/guide-ranking.ts", "test/guide.test.ts"],
+      "notes": "Use this when changing the guide option that caps only the Read first list."
     },
     {
       "term": "stale evidence",
@@ -18,19 +26,43 @@
     },
     {
       "term": "onboard manifest",
-      "aliases": ["static onboarding", "repo scan", "file hashes", "manifest generation"],
+      "aliases": ["static onboarding", "repo scan", "file hashes", "manifest generation", "stable manifest", "no mtimeMs churn"],
       "mapsTo": ["scanForManifest", "manifest.json"],
       "topics": ["onboard", "manifest", "hashing"],
       "paths": ["src/core/onboard-scan.ts", "src/commands/onboard.ts", "src/core/manifest.ts"],
       "notes": "Use this when changing deterministic repo scanning or manifest inventory behavior."
     },
     {
+      "term": "stable manifest",
+      "aliases": ["manifest churn", "no mtimeMs", "writeManifestIfChanged", "stabilizeManifest", "generatedAt preserved"],
+      "mapsTo": ["createFileEntry", "writeManifestIfChanged", "stabilizeManifest", "sameEffectiveManifest"],
+      "topics": ["manifest", "onboard", "verify", "stability"],
+      "paths": ["src/core/manifest.ts", "src/commands/onboard.ts", "test/verify.test.ts"],
+      "notes": "Use this when changing manifest idempotence, generatedAt preservation, legacy mtimeMs handling, or unchanged onboard writes."
+    },
+    {
       "term": "init no overwrite",
-      "aliases": ["init force", "scaffold", "skip existing files", "codex agent init", "claude agent init", "claude code skill", "agent instructions"],
-      "mapsTo": ["runInit", "ensureCodexAgentsInstructions", "ensureClaudeProjectSkill", "CODEX_AGENTS_SECTION", "CLAUDE_PROJECT_SKILL"],
-      "topics": ["init", "templates", "safe writes", "agent setup"],
+      "aliases": ["init force", "scaffold", "skip existing files"],
+      "mapsTo": ["runInit"],
+      "topics": ["init", "templates", "safe writes"],
       "paths": ["src/commands/init.ts", "src/core/templates.ts", "test/init.test.ts"],
-      "notes": "Use this when changing .projnavi scaffold behavior, overwrite rules, generated Codex AGENTS.md instructions, or the Claude Code project skill."
+      "notes": "Use this when changing .projnavi scaffold behavior, overwrite rules, or force handling."
+    },
+    {
+      "term": "agent integration",
+      "aliases": ["integrate", "agent setup", "codex agent init", "claude agent init", "cursor rule", "opencode skill", "generic agent"],
+      "mapsTo": ["runIntegrate", "runIntegrateInternal", "ensureCodexGlobalSkill", "ensureGenericAgentDoc", "ensureGenericProjectSkill"],
+      "topics": ["init", "integrate", "agent setup", "skills"],
+      "paths": ["src/commands/init.ts", "src/core/templates.ts", "test/init.test.ts", ".projnavi/modules/agent-integration.md"],
+      "notes": "Use this when changing init/integrate behavior for Codex, Claude, Cursor, OpenCode, or generic agent docs and skills."
+    },
+    {
+      "term": "policy-only agent docs",
+      "aliases": ["agent doc", "repo AGENTS.md policy", "managed policy guidance", "skills contain workflows", "policy docs"],
+      "mapsTo": ["CODEX_AGENTS_SECTION", "GENERIC_AGENT_DOC_SECTION", "CURSOR_PROJECT_RULE", "GENERIC_PROJECT_SKILL"],
+      "topics": ["agent setup", "docs", "skills", "policy"],
+      "paths": ["src/core/templates.ts", "src/commands/init.ts", "test/init.test.ts", "AGENTS.md"],
+      "notes": "Use this when changing the boundary between short repo agent policy and full skill workflow instructions."
     },
     {
       "term": "claim schema",
@@ -42,11 +74,11 @@
     },
     {
       "term": "guide benchmark",
-      "aliases": ["token savings benchmark", "without projnavi vs with projnavi", "compare guide", "benchmark plan"],
+      "aliases": ["token savings benchmark", "without projnavi vs with projnavi", "compare guide", "benchmark plan", "target hit rate", "irrelevant first pass", "wrong suggested tests"],
       "mapsTo": ["scripts/compare-guide.mjs", "docs/benchmark-plan.md"],
       "topics": ["benchmark", "guide", "tokens", "evaluation"],
       "paths": ["scripts/compare-guide.mjs", "docs/benchmark-plan.md", ".projnavi/flows/benchmark-guide.md"],
-      "notes": "Use this when measuring whether projnavi reduces first-pass exploration context."
+      "notes": "Use this when measuring whether projnavi reduces first-pass exploration context and still points to the right files."
     }
   ]
 }
