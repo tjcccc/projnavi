@@ -3,6 +3,9 @@ import path from "node:path";
 import { PROJNAVI_VERSION, writeManifest } from "../core/manifest.js";
 import { projnaviPath } from "../core/paths.js";
 import {
+  CLAUDE_MEMORY_SECTION,
+  CLAUDE_MEMORY_SECTION_END,
+  CLAUDE_MEMORY_SECTION_START,
   CLAUDE_PROJECT_SKILL,
   CLAUDE_SKILL_SECTION_END,
   CLAUDE_SKILL_SECTION_START,
@@ -106,7 +109,12 @@ async function runIntegrateInternal(root: string, options: InitOptions): Promise
       lines.push(await ensureCodexAgentsInstructions(root));
     }
   } else if (options.agent === "claude") {
-    lines.push(await ensureClaudeProjectSkill(root, options.force));
+    if (options.repoDoc) {
+      lines.push(await ensureClaudeMemoryPolicy(root));
+    } else {
+      lines.push(await ensureClaudeProjectSkill(root, options.force));
+      lines.push(await ensureClaudeMemoryPolicy(root));
+    }
   } else if (options.agent === "cursor") {
     lines.push(await ensureCursorProjectRule(root, options.force));
   } else if (options.agent === "opencode") {
@@ -149,6 +157,24 @@ async function ensureCodexAgentsInstructions(root: string): Promise<string> {
 
 async function ensureCodexGlobalSkill(root: string, force: boolean): Promise<string> {
   return ensureGenericProjectSkill(root, getCodexSkillsDir(), "Codex", force);
+}
+
+async function ensureClaudeMemoryPolicy(root: string): Promise<string> {
+  const claudePath = path.join(root, "CLAUDE.md");
+  const existing = await readOptionalFile(claudePath);
+  const nextContent = applyClaudeMemorySection(existing);
+
+  if (existing === nextContent) {
+    return "left CLAUDE.md unchanged";
+  }
+
+  await fs.writeFile(claudePath, nextContent, "utf8");
+
+  if (existing === null) {
+    return "created CLAUDE.md with projnavi Claude policy";
+  }
+
+  return "updated CLAUDE.md with projnavi Claude policy";
 }
 
 async function ensureClaudeProjectSkill(root: string, force: boolean): Promise<string> {
@@ -271,6 +297,28 @@ ${CODEX_AGENTS_SECTION}
   }
 
   return joinSections(existing.trimEnd(), CODEX_AGENTS_SECTION, "");
+}
+
+function applyClaudeMemorySection(existing: string | null): string {
+  if (existing === null) {
+    return `# CLAUDE.md
+
+Project memory for Claude Code.
+
+${CLAUDE_MEMORY_SECTION}
+`;
+  }
+
+  const start = existing.indexOf(CLAUDE_MEMORY_SECTION_START);
+  const end = existing.indexOf(CLAUDE_MEMORY_SECTION_END);
+
+  if (start !== -1 && end !== -1 && end > start) {
+    const before = existing.slice(0, start).trimEnd();
+    const after = existing.slice(end + CLAUDE_MEMORY_SECTION_END.length).trimStart();
+    return joinSections(before, CLAUDE_MEMORY_SECTION, after);
+  }
+
+  return joinSections(existing.trimEnd(), CLAUDE_MEMORY_SECTION, "");
 }
 
 function applyGenericManagedSection(existing: string | null): string {

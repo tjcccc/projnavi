@@ -87,6 +87,23 @@ ${GENERIC_AGENT_DOC_SECTION_END}`;
 export const CLAUDE_SKILL_SECTION_START = "<!-- projnavi-agent-claude:start -->";
 export const CLAUDE_SKILL_SECTION_END = "<!-- projnavi-agent-claude:end -->";
 
+export const CLAUDE_MEMORY_SECTION_START = "<!-- projnavi-agent-claude-policy:start -->";
+export const CLAUDE_MEMORY_SECTION_END = "<!-- projnavi-agent-claude-policy:end -->";
+
+// Proactive policy block for the repo CLAUDE.md (Claude Code loads it every
+// turn), mirroring CODEX_AGENTS_SECTION. The Claude skill carries the full
+// onboard/benchmark workflow; this block is the always-on "guide first" policy.
+// Kept deliberately short because it is always-loaded context.
+export const CLAUDE_MEMORY_SECTION = `${CLAUDE_MEMORY_SECTION_START}
+## projnavi
+
+Before broad or ambiguous codebase work, run \`projnavi guide "<task>"\` and use the result as navigation advice only — then verify the named files and line ranges before editing. Use the \`/projnavi\` skill for \`onboard\` and \`benchmark\` workflows.
+
+\`projnavi guide\` is strongest for high-entropy tasks such as cross-layer changes, project-specific concepts, architecture-sensitive edits, provider integrations, scattered ownership, or unclear naming. Skip it for trivial single-file edits where the exact location is already known; plain \`rg\` is fine there. Use \`--max-items <n>\` to cap only the \`Read first\` list.
+
+Maintenance is bounded: after changing files referenced by \`.projnavi/claims.jsonl\`, \`.projnavi/glossary.json\`, or \`.projnavi\` notes, run \`projnavi onboard\` then \`projnavi verify\` — not continuously.
+${CLAUDE_MEMORY_SECTION_END}`;
+
 export const CLAUDE_PROJECT_SKILL = `---
 name: projnavi
 description: Use when the user asks to onboard projnavi, benchmark projnavi, or use projnavi guide for broad codebase navigation.

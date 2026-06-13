@@ -36,7 +36,7 @@ Then ask Claude Code:
 /projnavi onboard
 ```
 
-The generated project skill at `.claude/skills/projnavi/SKILL.md` supports `onboard`, `benchmark`, and guide-style task arguments.
+This installs the project skill at `.claude/skills/projnavi/SKILL.md` (supporting `onboard`, `benchmark`, and guide-style task arguments) and writes a short managed projnavi policy block to the repo `CLAUDE.md` (creating it if absent). Because Claude Code loads `CLAUDE.md` every turn, the policy makes "run `projnavi guide` before broad work" proactive, not only reactive on `/projnavi`. To write only the `CLAUDE.md` policy without installing the skill, run `projnavi init --agent claude --repo-doc`.
 
 For Cursor, OpenCode, or other tools, use the integration that matches the agent:
 
@@ -88,6 +88,7 @@ projnavi init
 projnavi init --agent codex
 projnavi init --agent codex --repo-doc
 projnavi init --agent claude
+projnavi init --agent claude --repo-doc
 projnavi init --agent cursor
 projnavi init --agent opencode
 projnavi integrate --agent codex
@@ -103,7 +104,7 @@ projnavi notes users
 projnavi verify
 ```
 
-Plain `projnavi init` only creates the `.projnavi` scaffold. Use `projnavi init --agent codex` to install the global Codex skill and repo `AGENTS.md` policy guidance, `projnavi init --agent codex --repo-doc` to update only project `AGENTS.md` guide policy for Codex, `projnavi init --agent claude` to create the Claude Code project skill, `projnavi init --agent cursor` to create a Cursor project rule, or `projnavi init --agent opencode` to create OpenCode-compatible `AGENTS.md` guidance plus a project skill.
+Plain `projnavi init` only creates the `.projnavi` scaffold. Use `projnavi init --agent codex` to install the global Codex skill and repo `AGENTS.md` policy guidance, `projnavi init --agent codex --repo-doc` to update only project `AGENTS.md` guide policy for Codex, `projnavi init --agent claude` to create the Claude Code project skill and a managed repo `CLAUDE.md` policy block (`--agent claude --repo-doc` writes only the `CLAUDE.md` policy), `projnavi init --agent cursor` to create a Cursor project rule, or `projnavi init --agent opencode` to create OpenCode-compatible `AGENTS.md` guidance plus a project skill.
 
 For other coding agents, use `projnavi integrate`. `--agent-doc <path>` adds managed projnavi policy guidance to any agent-readable Markdown file. It does not install full skill workflows into the doc. `--skills-dir <skills-folder>` creates `<skills-folder>/projnavi/SKILL.md` using a generic skill format. Use either one or both depending on what the agent reads; projnavi does not modify unrelated tool configuration.
 

@@ -9,13 +9,16 @@ projnavi init --agent claude
 claude
 ```
 
-This creates a project-scoped Claude Code skill:
+This creates a project-scoped Claude Code skill and a managed projnavi policy block in the repo `CLAUDE.md`:
 
 ```text
 .claude/skills/projnavi/SKILL.md
+CLAUDE.md   (managed block: <!-- projnavi-agent-claude-policy:start/end -->)
 ```
 
-Invoke it with:
+The skill carries the full `onboard` / `benchmark` / guide workflow. The `CLAUDE.md` block is short, always-loaded policy so Claude Code proactively runs `projnavi guide "<task>"` before broad work — not only when you type `/projnavi`. It is created if `CLAUDE.md` is absent, refreshes idempotently, and preserves any hand-edited content elsewhere in the file. To write only the `CLAUDE.md` policy without installing the skill, run `projnavi init --agent claude --repo-doc`.
+
+Invoke the skill with:
 
 ```text
 /projnavi onboard

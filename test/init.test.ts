@@ -128,6 +128,51 @@ describe("init command", () => {
     expect(skill.match(/projnavi-agent-claude:start/g)).toHaveLength(1);
   });
 
+  it("writes a proactive projnavi policy block to CLAUDE.md alongside the skill", async () => {
+    const root = await makeEmptyTempDir();
+    const result = await runInit(root, { agent: "claude", force: false });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain("created .claude/skills/projnavi/SKILL.md with projnavi Claude skill");
+    expect(result.stdout).toContain("created CLAUDE.md with projnavi Claude policy");
+
+    const memory = await fs.readFile(path.join(root, "CLAUDE.md"), "utf8");
+    expect(memory).toContain("<!-- projnavi-agent-claude-policy:start -->");
+    expect(memory).toContain("<!-- projnavi-agent-claude-policy:end -->");
+    expect(memory).toContain('projnavi guide "<task>"');
+    expect(memory).toContain("projnavi verify");
+  });
+
+  it("writes only the CLAUDE.md policy (no skill) with --repo-doc for claude", async () => {
+    const root = await makeEmptyTempDir();
+    const result = await runInit(root, { agent: "claude", repoDoc: true, force: false });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain("created CLAUDE.md with projnavi Claude policy");
+    expect(result.stdout).not.toContain("SKILL.md");
+    await expect(
+      fs.access(path.join(root, ".claude", "skills", "projnavi", "SKILL.md"))
+    ).rejects.toThrow();
+  });
+
+  it("refreshes the CLAUDE.md policy block idempotently and preserves hand-edited content", async () => {
+    const root = await makeEmptyTempDir();
+    const claudePath = path.join(root, "CLAUDE.md");
+    await fs.writeFile(claudePath, "# CLAUDE.md\n\nMy own project notes.\n", "utf8");
+
+    const first = await runInit(root, { agent: "claude", repoDoc: true, force: false });
+    expect(first.stdout).toContain("updated CLAUDE.md with projnavi Claude policy");
+    const afterFirst = await fs.readFile(claudePath, "utf8");
+    expect(afterFirst).toContain("My own project notes.");
+    expect(afterFirst.match(/projnavi-agent-claude-policy:start/g)).toHaveLength(1);
+
+    const second = await runInit(root, { agent: "claude", repoDoc: true, force: false });
+    expect(second.stdout).toContain("left CLAUDE.md unchanged");
+    const afterSecond = await fs.readFile(claudePath, "utf8");
+    expect(afterSecond).toBe(afterFirst);
+    expect(afterSecond.match(/projnavi-agent-claude-policy:start/g)).toHaveLength(1);
+  });
+
   it("creates a Cursor project rule when requested", async () => {
     const root = await makeEmptyTempDir();
     const result = await runInit(root, { agent: "cursor", force: false });

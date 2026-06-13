@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "projnaviVersion": "0.4.0",
-  "generatedAt": "2026-05-27T08:52:58.451Z",
+  "projnaviVersion": "0.5.0",
+  "generatedAt": "2026-06-13T04:03:30.816Z",
   "root": ".",
   "files": {
     "AGENTS.md": {
@@ -10,13 +10,13 @@
       "category": "docs"
     },
     "CHANGELOG.md": {
-      "hash": "e735f46729123d395a38d52ed69084809a8e895ec14548769ea47716207ff399",
-      "size": 2417,
+      "hash": "6e6ac9dce9e3eca8e2c7318ca055755590cab399e014e013c45820cdeb03a456",
+      "size": 3237,
       "category": "docs"
     },
     "DEVLOG.md": {
-      "hash": "9da4bfffdfbb60b8427e48ab15da48ce6ff4a2f0e83ef287b76f0ae01ef3d912",
-      "size": 3196,
+      "hash": "af01c5a30fb7624b0947e5153ab66dad87e1a9adef21e6edb1ecb7c3accd1d44",
+      "size": 4048,
       "category": "docs"
     },
     "docs/benchmark-plan.md": {
@@ -25,8 +25,8 @@
       "category": "docs"
     },
     "docs/claude-usage.md": {
-      "hash": "49b5e276938525eabe4484c169be296b012d75d7c997d8079a42bf04e6ba5643",
-      "size": 1298,
+      "hash": "ffcab70506c391d7cb3b67f52dba77b2fb724a4a47c75dd0ad818d8096b8ce04",
+      "size": 1920,
       "category": "docs"
     },
     "docs/codex-usage.md": {
@@ -50,7 +50,7 @@
       "category": "config"
     },
     "package.json": {
-      "hash": "b16e4b58bf410cdc1d7201c49f09875885634a8453cc2ea356eeb154dfa94f6d",
+      "hash": "55e5013136396a71ce87f056207be3d32f8cbb720a5247443cf3f3dd16b3fbfa",
       "size": 1311,
       "category": "config"
     },
@@ -60,8 +60,8 @@
       "category": "source"
     },
     "README.md": {
-      "hash": "5d68f27ff41309205eecb0b4a02053b4d665f96f941ecadaff5d3b85ee6bd990",
-      "size": 7813,
+      "hash": "be92aea20427c686e1476496f913871bcfda451692428ba3a5316dd0577f72d6",
+      "size": 8334,
       "category": "docs"
     },
     "scripts/compare-guide.mjs": {
@@ -80,8 +80,8 @@
       "category": "source"
     },
     "src/commands/init.ts": {
-      "hash": "727a611646ed42fcda7a0b6516c272f2343a9889dd1239576821055444e46d76",
-      "size": 12018,
+      "hash": "4d50fb2ea34000b8898083765d87b93e93e0c18acab112462ee91436b0f25f41",
+      "size": 13431,
       "category": "source"
     },
     "src/commands/notes.ts": {
@@ -120,7 +120,7 @@
       "category": "source"
     },
     "src/core/manifest.ts": {
-      "hash": "89ab5b2d840575207fa5849ebe18e215a8e23f26d1bf64c97836c82be76e4a80",
+      "hash": "51db60ac2b94027121f02caed31f898f74214a5b36d6f71a22b6b88bf8a41e2c",
       "size": 8961,
       "category": "source"
     },
@@ -150,8 +150,8 @@
       "category": "source"
     },
     "src/core/templates.ts": {
-      "hash": "11fd05d8d229c23ff7ec84e58871308102e9b826519b44b290a49bd4f1890853",
-      "size": 11091,
+      "hash": "936249af09d15b0df0da21afbf598ab318594937bb50f1a976437ecf7c4362ef",
+      "size": 12523,
       "category": "source"
     },
     "src/core/verify.ts": {
@@ -205,8 +205,8 @@
       "category": "source"
     },
     "test/init.test.ts": {
-      "hash": "0de9b1d3effc55b7a994eb9ddac61e7292cc8caac3c33ecfdaa482694fd69b3e",
-      "size": 12636,
+      "hash": "097f0705be17ac3640c88249e70ce5be3da0337fb281404a28772920de32d5a8",
+      "size": 14978,
       "category": "test"
     },
     "test/notes.test.ts": {
@@ -305,8 +305,8 @@
       ]
     },
     "docs/claude-usage.md": {
-      "hash": "49b5e276938525eabe4484c169be296b012d75d7c997d8079a42bf04e6ba5643",
-      "size": 1298,
+      "hash": "ffcab70506c391d7cb3b67f52dba77b2fb724a4a47c75dd0ad818d8096b8ce04",
+      "size": 1920,
       "category": "docs",
       "claimIds": [
         "claim-agent-claude-integration-001"
@@ -354,8 +354,8 @@
       ]
     },
     "src/commands/init.ts": {
-      "hash": "727a611646ed42fcda7a0b6516c272f2343a9889dd1239576821055444e46d76",
-      "size": 12018,
+      "hash": "4d50fb2ea34000b8898083765d87b93e93e0c18acab112462ee91436b0f25f41",
+      "size": 13431,
       "category": "source",
       "claimIds": [
         "claim-agent-claude-integration-001",
@@ -417,7 +417,7 @@
       ]
     },
     "src/core/manifest.ts": {
-      "hash": "89ab5b2d840575207fa5849ebe18e215a8e23f26d1bf64c97836c82be76e4a80",
+      "hash": "51db60ac2b94027121f02caed31f898f74214a5b36d6f71a22b6b88bf8a41e2c",
       "size": 8961,
       "category": "source",
       "claimIds": [
@@ -442,8 +442,8 @@
       ]
     },
     "src/core/templates.ts": {
-      "hash": "11fd05d8d229c23ff7ec84e58871308102e9b826519b44b290a49bd4f1890853",
-      "size": 11091,
+      "hash": "936249af09d15b0df0da21afbf598ab318594937bb50f1a976437ecf7c4362ef",
+      "size": 12523,
       "category": "source",
       "claimIds": [
         "claim-agent-claude-integration-001",
@@ -492,8 +492,8 @@
       ]
     },
     "test/init.test.ts": {
-      "hash": "0de9b1d3effc55b7a994eb9ddac61e7292cc8caac3c33ecfdaa482694fd69b3e",
-      "size": 12636,
+      "hash": "097f0705be17ac3640c88249e70ce5be3da0337fb281404a28772920de32d5a8",
+      "size": 14978,
       "category": "test",
       "claimIds": [
         "claim-agent-claude-integration-001",

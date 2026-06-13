@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0 - Proactive Claude Code policy
+
+- `projnavi init --agent claude` now writes a managed proactive policy block to repo `CLAUDE.md` (creating it if absent), in addition to the project skill — closing the parity gap with the Codex `AGENTS.md` integration. Claude Code loads `CLAUDE.md` every turn, so this makes "run `projnavi guide` before broad work" proactive rather than only reactive on `/projnavi`.
+- Added `projnavi init --agent claude --repo-doc` to write only the `CLAUDE.md` policy block without installing the skill, mirroring `--agent codex --repo-doc`.
+- The `CLAUDE.md` block is marker-delimited (`<!-- projnavi-agent-claude-policy:start/end -->`), refreshes idempotently, and preserves hand-edited content elsewhere in the file. It is kept intentionally short because it is always-loaded context.
+
 ## 0.4.0 - Agent integration and guide precision
 
 - Added `projnavi --version` / `-v`.

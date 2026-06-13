@@ -1,5 +1,12 @@
 # DEVLOG
 
+## 2026-06-13
+
+- Prepared v0.5.0. Closed the Codex/Claude integration asymmetry: `projnavi init --agent claude` now writes a managed proactive policy block to repo `CLAUDE.md` (created if absent), alongside the existing project skill.
+- Added `--agent claude --repo-doc` (CLAUDE.md only, no skill), mirroring the Codex `--repo-doc` path.
+- Block is marker-delimited (`projnavi-agent-claude-policy`), idempotent, preserves hand-edited content, and kept short because `CLAUDE.md` is always-loaded context. The skill still carries the full `onboard`/`benchmark` workflow; the `CLAUDE.md` block is policy only.
+- Added `ensureClaudeMemoryPolicy` + `applyClaudeMemorySection` in `init.ts` mirroring the Codex `ensureCodexAgentsInstructions`/`applyManagedSection` pair; new `CLAUDE_MEMORY_SECTION` in `templates.ts`; 3 new init tests (32 total, all green).
+
 ## 2026-05-27
 
 - Prepared v0.4.0 with precision-focused guide ranking, `projnavi guide --max-items <n>`, `projnavi --version`, and `projnavi integrate`.
